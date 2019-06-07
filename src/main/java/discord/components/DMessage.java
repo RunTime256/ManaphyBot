@@ -3,7 +3,6 @@ package discord.components;
 import org.javacord.api.entity.message.Message;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
