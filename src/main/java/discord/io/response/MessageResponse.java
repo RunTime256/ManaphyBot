@@ -1,12 +1,18 @@
 package discord.io.response;
 
-import discord.builder.MessageBuilder;
 import discord.components.DChannel;
 
 public class MessageResponse
 {
-    public void sendMessage(DChannel channel, MessageBuilder builder)
-    {
+    private DChannel channel;
 
+    public MessageResponse(DChannel channel)
+    {
+        this.channel = channel;
+    }
+
+    public void sendMessage(String message)
+    {
+        channel.sendMessage(message);
     }
 }

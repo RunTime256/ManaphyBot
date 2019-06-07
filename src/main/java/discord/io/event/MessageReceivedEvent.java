@@ -8,7 +8,6 @@ import org.javacord.api.event.message.MessageCreateEvent;
 public class MessageReceivedEvent
 {
     private MessageCreateEvent event;
-
     private DAuthor author;
     private DChannel channel;
     private DMessage message;

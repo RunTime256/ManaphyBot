@@ -1,15 +1,18 @@
 package discord.components;
 
-import org.javacord.api.entity.channel.Channel;
+import org.javacord.api.entity.channel.TextChannel;
 
 public class DChannel
 {
-    private Channel channel;
+    private TextChannel channel;
 
-    public DChannel(Channel channel)
+    public DChannel(TextChannel channel)
     {
         this.channel = channel;
     }
 
-
+    public void sendMessage(String message)
+    {
+        channel.sendMessage(message);
+    }
 }

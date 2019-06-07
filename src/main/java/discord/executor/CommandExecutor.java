@@ -1,8 +1,8 @@
 package discord.executor;
 
-import discord.io.event.MessageReceivedEvent;
+import discord.components.functionality.verification.VerifiedMessage;
 
 public interface CommandExecutor
 {
-    void runCommand(MessageReceivedEvent event);
+    void runCommand(VerifiedMessage message);
 }

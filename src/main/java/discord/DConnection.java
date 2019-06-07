@@ -1,24 +1,34 @@
 package discord;
 
+import discord.components.functionality.command.MessageCommand;
 import discord.io.listener.MessageReceivedListener;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
+
+import java.util.List;
 
 class DConnection
 {
     private String token;
     private DiscordApi connection;
+    private MessageReceivedListener messageReceivedListener;
 
-    DConnection(String token)
+    DConnection(String token, String prefix)
     {
         this.token = token;
+        messageReceivedListener = new MessageReceivedListener(prefix);
+    }
+
+    void addCommands(List<MessageCommand> commands)
+    {
+        messageReceivedListener.addCommands(commands);
     }
 
     void start()
     {
         connection = new DiscordApiBuilder().setToken(token).login().join();
 
-        connection.addMessageCreateListener(new MessageReceivedListener());
+        connection.addMessageCreateListener(messageReceivedListener);
     }
 
     void stop()

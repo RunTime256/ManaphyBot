@@ -1,4 +1,7 @@
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import sql.Session;
 import sql.SessionWrapper;
 import bot.Bot;

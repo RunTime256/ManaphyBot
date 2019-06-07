@@ -1,5 +1,6 @@
 package bot;
 
+import bot.command.Commands;
 import discord.Discord;
 
 public class Bot
@@ -8,6 +9,7 @@ public class Bot
     private String name;
     private String token;
     private String prefix;
+    private Commands commands;
 
     public Bot(String name, String token, String prefix)
     {
@@ -15,11 +17,13 @@ public class Bot
         this.name = name;
         this.token = token;
         this.prefix = prefix;
+        commands = new Commands();
         discord = new Discord(token, prefix);
     }
 
     public void start()
     {
+        discord.addCommands(commands.getActiveCommands());
         discord.start();
     }
 
