@@ -2,7 +2,9 @@ package discord.components;
 
 import org.javacord.api.entity.message.Message;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class DMessage
@@ -16,7 +18,9 @@ public class DMessage
 
     public List<String> getSplitContent()
     {
-        String content = message.getContent();
-        return Arrays.asList(content.split(" "));
+        List<String> list = new ArrayList<>();
+        Collections.addAll(list, message.getContent().split(" "));
+
+        return list;
     }
 }

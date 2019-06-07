@@ -39,9 +39,12 @@ public class MessageReceivedExecutor
         MessageCommand currentCommand = commands.get(firstCommand);
         while (content.size() > 0)
         {
-            String subCommand = content.remove(0);
+            String subCommand = content.get(0);
             if (currentCommand.hasSubCommand(subCommand))
+            {
                 currentCommand = currentCommand.getSubCommand(subCommand);
+                content.remove(0);
+            }
             else
                 break;
         }
