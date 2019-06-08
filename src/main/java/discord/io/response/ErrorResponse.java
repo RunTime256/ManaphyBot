@@ -2,6 +2,9 @@ package discord.io.response;
 
 import discord.builder.DEmbedBuilder;
 import discord.components.DChannel;
+import exception.ManaphyException;
+
+import java.awt.*;
 
 public class ErrorResponse
 {
@@ -23,10 +26,29 @@ public class ErrorResponse
 
     private DEmbedBuilder createErrorEmbed()
     {
+        exception.printStackTrace();
+        String title = "An error occurred: " + exception.getClass().getSimpleName();
+        String message;
+        Color color;
+
+        if (ManaphyException.class.isAssignableFrom(exception.getClass()))
+        {
+            message = exception.getMessage();
+            color = ((ManaphyException)exception).getColor();
+        }
+        else
+        {
+            message = "This error has been logged and will be investigated.\n\n" +
+                    "Please refrain from using this command until further notice.\n" +
+                    "Thank you!";
+            color = Color.RED;
+        }
+
         DEmbedBuilder builder = new DEmbedBuilder();
 
-        builder.setTitle(exception.getClass().getName());
-        builder.setDescription(exception.toString());
+        builder.setTitle(title);
+        builder.setDescription(message);
+        builder.setColor(color);
 
         return builder;
     }

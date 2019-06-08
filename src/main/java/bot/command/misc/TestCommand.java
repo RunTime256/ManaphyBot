@@ -6,6 +6,7 @@ import bot.command.misc.verifier.TestMessageContent;
 import bot.command.misc.verifier.TestMessageVerifier;
 import discord.components.functionality.command.MessageCommand;
 import discord.components.functionality.verification.VerifiedMessage;
+import exception.bot.command.CommandException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,12 +51,9 @@ public class TestCommand
         content.getSender().sendMessage(text);
     }
 
-    private void testError(VerifiedMessage<TestErrorContent> message)
+    private void testError(VerifiedMessage<TestErrorContent> message) throws CommandException
     {
         TestErrorContent content = message.getContent();
-        int x = content.getX();
-        int y = content.getY();
-        int z = x / y;
-        content.getSender().sendMessage(z);
+        throw content.getCommandException();
     }
 }

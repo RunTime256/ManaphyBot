@@ -2,6 +2,8 @@ package discord.builder;
 
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 
+import java.awt.*;
+
 public class DEmbedBuilder
 {
     private EmbedBuilder builder;
@@ -19,6 +21,11 @@ public class DEmbedBuilder
     public void setDescription(String description)
     {
         builder.setDescription(description);
+    }
+
+    public void setColor(Color color)
+    {
+        builder.setColor(color);
     }
 
     public EmbedBuilder getBuilder()

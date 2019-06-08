@@ -60,7 +60,12 @@ public class MessageReceivedExecutor
         while (content.size() > 0)
         {
             String subCommand = content.get(0);
-            if (currentCommand.hasSubCommand(subCommand))
+
+            if (subCommand.equals(""))
+            {
+                content.remove(0);
+            }
+            else if (currentCommand.hasSubCommand(subCommand))
             {
                 currentCommand = currentCommand.getSubCommand(subCommand);
                 content.remove(0);

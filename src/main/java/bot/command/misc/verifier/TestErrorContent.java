@@ -1,33 +1,18 @@
 package bot.command.misc.verifier;
 
-import discord.io.response.MessageResponse;
+import exception.bot.command.CommandException;
 
 public class TestErrorContent
 {
-    private int x;
-    private int y;
-    private MessageResponse sender;
+    private CommandException commandException;
 
-    TestErrorContent(MessageResponse sender)
+    TestErrorContent()
     {
-        x = 1;
-        y = 0;
-
-        this.sender = sender;
+        commandException = new CommandException("Test Error");
     }
 
-    public int getX()
+    public CommandException getCommandException()
     {
-        return x;
-    }
-
-    public int getY()
-    {
-        return y;
-    }
-
-    public MessageResponse getSender()
-    {
-        return sender;
+        return commandException;
     }
 }
