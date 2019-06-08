@@ -2,7 +2,7 @@ package exception.bot.command;
 
 import exception.bot.BotException;
 
-import java.awt.*;
+import java.awt.Color;
 
 public class CommandException extends BotException
 {

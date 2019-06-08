@@ -2,7 +2,7 @@ package exception.discord;
 
 import exception.ManaphyException;
 
-import java.awt.*;
+import java.awt.Color;
 
 public class DiscordException extends ManaphyException
 {

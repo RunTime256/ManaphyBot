@@ -1,6 +1,6 @@
 package exception;
 
-import java.awt.*;
+import java.awt.Color;
 
 public class ManaphyException extends Exception
 {

@@ -2,7 +2,7 @@ package exception.bot;
 
 import exception.ManaphyException;
 
-import java.awt.*;
+import java.awt.Color;
 
 public class BotException extends ManaphyException
 {
