@@ -9,6 +9,6 @@ public class TestErrorVerifier implements MessageVerifier<TestErrorContent>
     @Override
     public VerifiedMessage<TestErrorContent> verifyMessage(String message, MessageReceivedEvent event)
     {
-        return new TestVError();
+        return new VerifiedTestError();
     }
 }

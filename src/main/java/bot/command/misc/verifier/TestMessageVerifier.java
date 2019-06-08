@@ -10,6 +10,6 @@ public class TestMessageVerifier implements MessageVerifier<TestMessageContent>
     @Override
     public VerifiedMessage<TestMessageContent> verifyMessage(String message, MessageReceivedEvent event)
     {
-        return new TestVMessage(message, new MessageResponse(event.getChannel()));
+        return new VerifiedTestMessage(message, new MessageResponse(event.getChannel()));
     }
 }

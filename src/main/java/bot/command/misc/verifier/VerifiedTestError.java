@@ -2,11 +2,11 @@ package bot.command.misc.verifier;
 
 import discord.components.functionality.verification.VerifiedMessage;
 
-public class TestVError implements VerifiedMessage<TestErrorContent>
+public class VerifiedTestError implements VerifiedMessage<TestErrorContent>
 {
     private TestErrorContent content;
 
-    TestVError()
+    VerifiedTestError()
     {
         content = new TestErrorContent();
     }
