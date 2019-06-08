@@ -43,6 +43,21 @@ public class MessageCommand
         }
     }
 
+    public MessageCommand(String name, String description, List<MessageCommand> subCommands)
+    {
+        this.subCommands = new HashMap<>();
+
+        this.name = name;
+        this.description = description;
+        this.executor = null;
+        this.verifier = null;
+
+        for (MessageCommand subCommand: subCommands)
+        {
+            this.subCommands.put(subCommand.getName(), subCommand);
+        }
+    }
+
     public String getName()
     {
         return name;

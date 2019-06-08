@@ -11,10 +11,12 @@ import java.util.List;
 public class MessageReceivedListener implements MessageCreateListener
 {
     private MessageReceivedExecutor executor;
+    private MessageReceivedExecutor botCommandExecutor;
 
-    public MessageReceivedListener(String prefix)
+    public MessageReceivedListener(String prefix, String botPrefix)
     {
         executor = new MessageReceivedExecutor(prefix);
+        botCommandExecutor = new MessageReceivedExecutor(botPrefix);
     }
 
     public void addCommands(List<MessageCommand> commands)
@@ -27,6 +29,13 @@ public class MessageReceivedListener implements MessageCreateListener
     public void onMessageCreate(MessageCreateEvent messageCreateEvent)
     {
         MessageReceivedEvent event = new MessageReceivedEvent(messageCreateEvent);
-        executor.execute(event);
+        if (!messageCreateEvent.getMessageAuthor().isBotUser())
+        {
+            executor.execute(event);
+        }
+        else if (!messageCreateEvent.getMessageAuthor().isYourself())
+        {
+            botCommandExecutor.execute(event);
+        }
     }
 }

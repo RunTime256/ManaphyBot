@@ -2,12 +2,12 @@ package bot.command.misc.verifier;
 
 import discord.io.response.MessageResponse;
 
-public class TestContent
+public class TestMessageContent
 {
     private String message;
     private MessageResponse sender;
 
-    TestContent(String message, MessageResponse sender)
+    TestMessageContent(String message, MessageResponse sender)
     {
         this.message = message;
         this.sender = sender;

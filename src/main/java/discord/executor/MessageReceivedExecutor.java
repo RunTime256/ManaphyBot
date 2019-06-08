@@ -2,6 +2,7 @@ package discord.executor;
 
 import discord.components.functionality.command.MessageCommand;
 import discord.io.event.MessageReceivedEvent;
+import discord.io.response.ErrorResponse;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,12 +30,31 @@ public class MessageReceivedExecutor
         if (content.size() == 0)
             return;
 
+        MessageCommand command = getCommand(content);
+        String message = combineContent(content);
+
+        if (command != null)
+        {
+            try
+            {
+                command.execute(message, event);
+            }
+            catch (Exception e)
+            {
+                ErrorResponse response = new ErrorResponse(e, event.getChannel());
+                response.sendErrorMessage();
+            }
+        }
+    }
+
+    private MessageCommand getCommand(List<String> content)
+    {
         String firstCommand = content.remove(0);
         if (firstCommand.startsWith(prefix))
             firstCommand = removePrefix(firstCommand);
 
         if (!hasCommand(firstCommand))
-            return;
+            return null;
 
         MessageCommand currentCommand = commands.get(firstCommand);
         while (content.size() > 0)
@@ -49,8 +69,7 @@ public class MessageReceivedExecutor
                 break;
         }
 
-        String message = combineContent(content);
-        currentCommand.execute(message, event);
+        return currentCommand;
     }
 
     private boolean hasCommand(String name)
