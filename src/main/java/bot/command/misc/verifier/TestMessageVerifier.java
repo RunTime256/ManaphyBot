@@ -5,11 +5,10 @@ import discord.components.functionality.verification.VerifiedMessage;
 import discord.io.event.MessageReceivedEvent;
 import discord.io.response.MessageResponse;
 
-public class TestVerifier implements MessageVerifier<TestContent>
+public class TestMessageVerifier implements MessageVerifier<TestMessageContent>
 {
-
     @Override
-    public VerifiedMessage<TestContent> verifyMessage(String message, MessageReceivedEvent event)
+    public VerifiedMessage<TestMessageContent> verifyMessage(String message, MessageReceivedEvent event)
     {
         return new TestVMessage(message, new MessageResponse(event.getChannel()));
     }

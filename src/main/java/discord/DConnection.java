@@ -13,10 +13,10 @@ class DConnection
     private DiscordApi connection;
     private MessageReceivedListener messageReceivedListener;
 
-    DConnection(String token, String prefix)
+    DConnection(String token, String prefix, String botPrefix)
     {
         this.token = token;
-        messageReceivedListener = new MessageReceivedListener(prefix);
+        messageReceivedListener = new MessageReceivedListener(prefix, botPrefix);
     }
 
     void addCommands(List<MessageCommand> commands)

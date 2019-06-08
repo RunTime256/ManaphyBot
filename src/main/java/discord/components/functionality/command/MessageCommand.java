@@ -4,6 +4,7 @@ import discord.components.functionality.verification.MessageVerifier;
 import discord.components.functionality.verification.VerifiedMessage;
 import discord.executor.CommandExecutor;
 import discord.io.event.MessageReceivedEvent;
+import exception.bot.command.CommandException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,6 +44,21 @@ public class MessageCommand
         }
     }
 
+    public MessageCommand(String name, String description, List<MessageCommand> subCommands)
+    {
+        this.subCommands = new HashMap<>();
+
+        this.name = name;
+        this.description = description;
+        this.executor = null;
+        this.verifier = null;
+
+        for (MessageCommand subCommand: subCommands)
+        {
+            this.subCommands.put(subCommand.getName(), subCommand);
+        }
+    }
+
     public String getName()
     {
         return name;
@@ -68,7 +84,7 @@ public class MessageCommand
         return subCommands.get(name);
     }
 
-    public void execute(String message, MessageReceivedEvent event)
+    public void execute(String message, MessageReceivedEvent event) throws CommandException
     {
         VerifiedMessage verifiedMessage = verifier.verifyMessage(message, event);
         executor.runCommand(verifiedMessage);

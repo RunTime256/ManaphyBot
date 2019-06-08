@@ -18,7 +18,7 @@ public class Bot
         this.token = token;
         this.prefix = prefix;
         commands = new Commands();
-        discord = new Discord(token, prefix);
+        discord = new Discord(token, prefix, "=");
     }
 
     public void start()

@@ -8,9 +8,9 @@ public class Discord
 {
     private DConnection connection;
 
-    public Discord(String token, String prefix)
+    public Discord(String token, String prefix, String botPrefix)
     {
-        connection = new DConnection(token, prefix);
+        connection = new DConnection(token, prefix, botPrefix);
     }
 
     public void addCommands(List<MessageCommand> commands)

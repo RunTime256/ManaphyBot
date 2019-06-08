@@ -1,5 +1,6 @@
 package discord.components;
 
+import discord.builder.DEmbedBuilder;
 import org.javacord.api.entity.channel.TextChannel;
 
 public class DChannel
@@ -14,5 +15,10 @@ public class DChannel
     public void sendMessage(String message)
     {
         channel.sendMessage(message);
+    }
+
+    public void sendMessage(DEmbedBuilder builder)
+    {
+        channel.sendMessage(builder.getBuilder());
     }
 }

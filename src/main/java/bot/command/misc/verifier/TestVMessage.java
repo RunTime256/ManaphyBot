@@ -3,17 +3,17 @@ package bot.command.misc.verifier;
 import discord.components.functionality.verification.VerifiedMessage;
 import discord.io.response.MessageResponse;
 
-public class TestVMessage implements VerifiedMessage<TestContent>
+public class TestVMessage implements VerifiedMessage<TestMessageContent>
 {
-    private TestContent content;
+    private TestMessageContent content;
 
     TestVMessage(String message, MessageResponse response)
     {
-        content = new TestContent(message, response);
+        content = new TestMessageContent(message, response);
     }
 
     @Override
-    public TestContent getContent()
+    public TestMessageContent getContent()
     {
         return content;
     }
