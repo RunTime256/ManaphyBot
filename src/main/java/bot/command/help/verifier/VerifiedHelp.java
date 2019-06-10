@@ -8,9 +8,9 @@ public class VerifiedHelp implements VerifiedMessage<HelpContent>
 {
     private HelpContent content;
 
-    VerifiedHelp(MessageCommand command, String exception, MessageResponse sender)
+    VerifiedHelp(String commandString, MessageCommand command, String exception, MessageResponse sender)
     {
-        content = new HelpContent(command, exception, sender);
+        content = new HelpContent(commandString, command, exception, sender);
     }
     @Override
     public HelpContent getContent()

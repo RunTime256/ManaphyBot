@@ -15,6 +15,7 @@ import java.util.Map;
 public class HelpVerifier extends MessageVerifier<HelpContent>
 {
     private String exception;
+    private String commandString;
     private Map<String, MessageCommand> executor;
 
     public HelpVerifier(Map<String, MessageCommand> executor)
@@ -22,6 +23,7 @@ public class HelpVerifier extends MessageVerifier<HelpContent>
         arguments = new HashMap<>();
         arguments.put("e", (this::extractExceptionArg));
         exception = "";
+        commandString = "";
 
         this.executor = executor;
     }
@@ -34,24 +36,38 @@ public class HelpVerifier extends MessageVerifier<HelpContent>
         extractArgs(args);
         MessageResponse sender = new MessageResponse(event.getChannel());
 
-        return new VerifiedHelp(command, exception, sender);
+        return new VerifiedHelp(commandString, command, exception, sender);
     }
 
     private MessageCommand extractCommand(List<String> message)
     {
         List<String> command = new ArrayList<>();
 
+        StringBuilder builder = new StringBuilder();
         while (!message.isEmpty())
         {
             String text = message.get(0);
             if (!text.isEmpty())
-                if (text.startsWith(ARGUMENT))
-                    break;
-                else
+            {
+                if (!text.startsWith(ARGUMENT))
+                {
                     command.add(text);
+                    String piece = text + " ";
+                    builder.append(piece);
+                }
+                else
+                {
+                    break;
+                }
+            }
 
             message.remove(0);
         }
+
+        if (builder.length() > 0)
+            builder.deleteCharAt(builder.length() - 1);
+
+        commandString = builder.toString();
 
         return getCommand(command);
     }
