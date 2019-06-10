@@ -9,11 +9,10 @@ import java.util.List;
 
 public class Commands
 {
-    private HelpCommand helpCommand;
     private TestCommand testCommand;
+
     public Commands()
     {
-        helpCommand = new HelpCommand();
         testCommand = new TestCommand();
     }
 
@@ -21,7 +20,7 @@ public class Commands
     {
         List<MessageCommand> commands = new ArrayList<>();
         commands.add(testCommand.getCommand());
-        commands.add(helpCommand.getCommand());
+        commands.add(new HelpCommand(commands).getCommand());
 
         return commands;
     }

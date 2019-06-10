@@ -2,6 +2,7 @@ package discord.executor;
 
 import discord.components.DChannel;
 import discord.components.functionality.command.MessageCommand;
+import discord.components.functionality.verification.MessageVerifier;
 import discord.io.event.MessageReceivedEvent;
 import discord.io.response.ErrorResponse;
 import exception.bot.NoHelpException;
@@ -17,13 +18,11 @@ public class MessageReceivedExecutor
 {
     private Map<String, MessageCommand> commands;
     private String prefix;
-    private String argument;
 
     public MessageReceivedExecutor(String prefix)
     {
         commands = new HashMap<>();
         this.prefix = prefix;
-        argument = ":";
     }
 
     public void addCommand(MessageCommand command)
@@ -77,7 +76,7 @@ public class MessageReceivedExecutor
         if (e.getMessage().isEmpty())
             errorCommand = commandSequence;
         else
-            errorCommand = commandSequence + argument + "e " + e.getMessage();
+            errorCommand = commandSequence + MessageVerifier.ARGUMENT + "e " + e.getMessage();
 
         help.execute(errorCommand, event);
     }
