@@ -14,16 +14,18 @@ import java.util.Map;
 
 public class HelpVerifier extends MessageVerifier<HelpContent>
 {
+    private String prefix;
     private String exception;
     private String commandString;
     private Map<String, MessageCommand> executor;
 
-    public HelpVerifier(Map<String, MessageCommand> executor)
+    public HelpVerifier(Map<String, MessageCommand> executor, String prefix)
     {
         arguments = new HashMap<>();
         arguments.put("e", (this::extractExceptionArg));
         exception = "";
         commandString = "";
+        this.prefix = prefix;
 
         this.executor = executor;
     }
@@ -36,7 +38,7 @@ public class HelpVerifier extends MessageVerifier<HelpContent>
         extractArgs(args);
         MessageResponse sender = new MessageResponse(event.getChannel());
 
-        return new VerifiedHelp(commandString, command, exception, sender);
+        return new VerifiedHelp(commandString, command, exception, sender, prefix);
     }
 
     private MessageCommand extractCommand(List<String> message)

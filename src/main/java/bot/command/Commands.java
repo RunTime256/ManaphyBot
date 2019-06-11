@@ -16,11 +16,11 @@ public class Commands
         testCommand = new TestCommand();
     }
 
-    public List<MessageCommand> getActiveCommands()
+    public List<MessageCommand> getActiveCommands(String prefix)
     {
         List<MessageCommand> commands = new ArrayList<>();
         commands.add(testCommand.getCommand());
-        commands.add(new HelpCommand(commands).getCommand());
+        commands.add(new HelpCommand(commands, prefix).getCommand());
 
         return commands;
     }

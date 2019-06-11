@@ -6,7 +6,6 @@ import discord.builder.DEmbedBuilder;
 import discord.components.functionality.command.MessageCommand;
 import discord.components.functionality.verification.VerifiedMessage;
 import discord.io.response.MessageResponse;
-import util.Pair;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -19,13 +18,13 @@ public class HelpCommand
     private Map<String, MessageCommand> executor;
     private MessageCommand command;
 
-    public HelpCommand(List<MessageCommand> executor)
+    public HelpCommand(List<MessageCommand> executor, String prefix)
     {
         this.executor = new HashMap<>();
         for (MessageCommand command: executor)
             this.executor.put(command.getName(), command);
 
-        this.command = createHelpCommand();
+        this.command = createHelpCommand(prefix);
     }
 
     public MessageCommand getCommand()
@@ -33,52 +32,95 @@ public class HelpCommand
         return command;
     }
 
-    private MessageCommand createHelpCommand()
+    private MessageCommand createHelpCommand(String prefix)
     {
-        return new MessageCommand("help", "Get help with a command", (this::help), new HelpVerifier(executor));
+        return new MessageCommand("help", "Get help with a command", (this::help), new HelpVerifier(executor, prefix));
     }
 
     private void help(VerifiedMessage<HelpContent> message)
     {
         HelpContent content = message.getContent();
+        String prefix = content.getPrefix();
         String commandString = content.getCommandString();
         MessageCommand command = content.getCommand();
         String exception = content.getException();
         MessageResponse sender = content.getSender();
 
-        DEmbedBuilder builder = buildHelp(commandString, command, exception);
+        DEmbedBuilder builder = buildHelp(prefix, commandString, command, exception);
         sender.sendMessage(builder);
     }
 
-    private DEmbedBuilder buildHelp(String commandString, MessageCommand command, String exception)
+    private DEmbedBuilder buildHelp(String prefix, String commandString, MessageCommand command, String exception)
     {
         DEmbedBuilder builder = new DEmbedBuilder();
         String author = "Help with Manaphy";
-        String title = commandString;
-        String description = command.getDescription();
-        List<Pair<String, String>> subCommands = getSubCommands(command);
+        String description;
+        if (command != null)
+            description = combineSubCommands(prefix, commandString, command);
+        else
+            description = combineCommands(prefix);
         String footer = exception;
         Color color = new Color(97, 185, 221);
 
-        builder.setAuthor(author).setTitle(title).setColor(color);
+        builder.setAuthor(author).setColor(color);
         if (!footer.isEmpty())
             builder.setFooter(footer);
-        if (!description.isEmpty())
-            builder.setDescription(description);
-        for (Pair<String, String> subCommand: subCommands)
-            builder.addField(subCommand.getA(), subCommand.getB());
+        builder.setDescription(description);
 
         return builder;
     }
 
-    private List<Pair<String, String>> getSubCommands(MessageCommand command)
+    private String combineCommands(String prefix)
     {
-        List<Pair<String, String>> pairs = new ArrayList<>();
+        StringBuilder combined = new StringBuilder();
+
+        combined.append("__**Commands:**__\n");
+
+        for (String commandString: executor.keySet())
+        {
+            MessageCommand command = executor.get(commandString);
+            String singleCommand = "**" + prefix + command.getName() + "** " + command.getDescription() + "\n\n";
+            combined.append(singleCommand);
+        }
+
+        return combined.toString();
+    }
+
+    private String combineSubCommands(String prefix, String commandString, MessageCommand superCommand)
+    {
+        StringBuilder combined = new StringBuilder();
+
+        String title = "`" + prefix + commandString + "`\n";
+        combined.append(title);
+
+        String desc = superCommand.getDescription();
+        if (!desc.isEmpty())
+        {
+            combined.append(superCommand.getDescription());
+            combined.append("\n");
+        }
+        combined.append("\n");
+
+        combined.append("__**Sub-commands:**__\n");
+
+        for (MessageCommand command : getSubCommands(superCommand))
+        {
+            String subCommand = "**" + prefix + commandString + " " + command.getName() + "** "
+                    + command.getDescription() + "\n";
+            combined.append(subCommand);
+        }
+
+        return combined.toString();
+    }
+
+    private List<MessageCommand> getSubCommands(MessageCommand command)
+    {
+        List<MessageCommand> pairs = new ArrayList<>();
         List<String> subCommands = command.getSubCommands();
 
         for (String subCommand: subCommands)
         {
-            pairs.add(new Pair<>(subCommand, command.getSubCommand(subCommand).getName()));
+            pairs.add(command.getSubCommand(subCommand));
         }
 
         return pairs;
