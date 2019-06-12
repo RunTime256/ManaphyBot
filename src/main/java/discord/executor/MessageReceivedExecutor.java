@@ -76,7 +76,7 @@ public class MessageReceivedExecutor
         if (e.getMessage().isEmpty())
             errorCommand = commandSequence;
         else
-            errorCommand = commandSequence + MessageVerifier.ARGUMENT + "e " + e.getMessage();
+            errorCommand = commandSequence + " " + MessageVerifier.ARGUMENT + "e " + e.getMessage();
 
         help.execute(errorCommand, event);
     }
@@ -84,10 +84,11 @@ public class MessageReceivedExecutor
     private String getCommandSequence(List<String> original, int remove)
     {
         List<String> commandSequence = new ArrayList<>();
-        for (int i = 0; i < original.size() - remove; i++)
-        {
+        if (!original.isEmpty())
+            commandSequence.add(removePrefix(original.get(0)));
+
+        for (int i = 1; i < original.size() - remove; i++)
             commandSequence.add(original.get(i));
-        }
 
         return combineContent(commandSequence);
     }
