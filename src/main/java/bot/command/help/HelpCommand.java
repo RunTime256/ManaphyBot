@@ -99,15 +99,20 @@ public class HelpCommand
             combined.append(superCommand.getDescription());
             combined.append("\n");
         }
-        combined.append("\n");
 
-        combined.append("__**Sub-commands:**__\n");
+        StringBuilder subCommands = new StringBuilder();
 
         for (MessageCommand command : getSubCommands(superCommand))
         {
             String subCommand = "**" + prefix + commandString + " " + command.getName() + "** "
                     + command.getDescription() + "\n";
-            combined.append(subCommand);
+            subCommands.append(subCommand);
+        }
+
+        if (subCommands.length() > 0)
+        {
+            combined.append("\n__**Sub-commands:**__\n");
+            combined.append(subCommands.toString());
         }
 
         return combined.toString();

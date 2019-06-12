@@ -45,7 +45,6 @@ public class HelpVerifier extends MessageVerifier<HelpContent>
     {
         List<String> command = new ArrayList<>();
 
-        StringBuilder builder = new StringBuilder();
         while (!message.isEmpty())
         {
             String text = message.get(0);
@@ -54,8 +53,6 @@ public class HelpVerifier extends MessageVerifier<HelpContent>
                 if (!text.startsWith(ARGUMENT))
                 {
                     command.add(text);
-                    String piece = text + " ";
-                    builder.append(piece);
                 }
                 else
                 {
@@ -66,22 +63,40 @@ public class HelpVerifier extends MessageVerifier<HelpContent>
             message.remove(0);
         }
 
-        if (builder.length() > 0)
-            builder.deleteCharAt(builder.length() - 1);
-
-        commandString = builder.toString();
-
         return getCommand(command);
     }
 
     private MessageCommand getCommand(List<String> command)
     {
         MessageCommand current = null;
+
+        StringBuilder builder = new StringBuilder();
+
+        if (!command.isEmpty())
+        {
+            String comm = command.remove(0);
+
+            current = executor.get(comm);
+            comm = comm + " ";
+            builder.append(comm);
+        }
+        if (current == null)
+            return null;
+
         while (!command.isEmpty())
-            if (executor.containsKey(command.get(0)))
-                current = executor.get(command.remove(0));
-            else
+        {
+            String comm = command.remove(0);
+            if (!current.hasSubCommand(comm))
                 break;
+
+            current = current.getSubCommand(comm);
+            comm = comm + " ";
+            builder.append(comm);
+        }
+
+        if (builder.length() > 0)
+            builder.deleteCharAt(builder.length() - 1);
+        commandString = builder.toString();
 
         return current;
     }
