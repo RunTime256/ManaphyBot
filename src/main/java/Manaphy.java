@@ -7,7 +7,6 @@ import bot.BotMapper;
 
 public class Manaphy
 {
-
     public static void main(String[] args) throws IOException
     {
         Session session = new Session("mybatis-config.xml");
@@ -15,6 +14,7 @@ public class Manaphy
 
         Bot bot;
 
+        // Get the bot info from the session
         try (SessionWrapper wrapper = new SessionWrapper(session))
         {
             //select contact all contacts
