@@ -46,9 +46,7 @@ public class ErrorResponse
 
         DEmbedBuilder builder = new DEmbedBuilder();
 
-        builder.setTitle(title);
-        builder.setDescription(message);
-        builder.setColor(color);
+        builder.setTitle(title).setDescription(message).setColor(color);
 
         return builder;
     }

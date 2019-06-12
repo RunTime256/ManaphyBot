@@ -5,6 +5,7 @@ import discord.components.functionality.verification.VerifiedMessage;
 import discord.executor.CommandExecutor;
 import discord.io.event.MessageReceivedEvent;
 import exception.bot.command.CommandException;
+import exception.bot.command.InvalidArgumentsException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -86,6 +87,14 @@ public class MessageCommand
 
     public void execute(String message, MessageReceivedEvent event) throws CommandException
     {
+        if (executor == null || verifier == null)
+        {
+            String response = "This command does not do anything.";
+            if (!subCommands.isEmpty())
+                response += " Please use a sub-command.";
+            throw new InvalidArgumentsException(response);
+        }
+
         VerifiedMessage verifiedMessage = verifier.verifyMessage(message, event);
         executor.runCommand(verifiedMessage);
     }

@@ -23,7 +23,7 @@ public class Bot
 
     public void start()
     {
-        discord.addCommands(commands.getActiveCommands());
+        discord.addCommands(commands.getActiveCommands(prefix));
         discord.start();
     }
 
