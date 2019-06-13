@@ -54,7 +54,8 @@ public class WhiteBlackList
             WhiteBlackListMapper mapper = wrapper.getMapper(WhiteBlackListMapper.class);
             if (!mapper.getGuildBlacklist(command, guildID).isEmpty() ||
                     !mapper.getCategoryBlacklist(command, guildID, categoryID).isEmpty() ||
-                    !mapper.getChannelBlacklist(command, guildID, channelID).isEmpty())
+                    !mapper.getChannelBlacklist(command, guildID, channelID).isEmpty()
+            )
                 ret = false;
         }
 
@@ -68,11 +69,34 @@ public class WhiteBlackList
 
     private boolean isWhitelistAllowed(String command, long guildID, long channelID)
     {
-        return true;
+        boolean ret = true;
+
+        try (SessionWrapper wrapper = new SessionWrapper(session))
+        {
+            WhiteBlackListMapper mapper = wrapper.getMapper(WhiteBlackListMapper.class);
+            if (mapper.getGuildWhitelistSize(command) > 0 && mapper.getGuildWhitelist(command, guildID).isEmpty() ||
+                    mapper.getChannelWhitelistSize(command, guildID) > 0 && mapper.getChannelWhitelist(command, guildID, channelID).isEmpty()
+            )
+                    ret = false;
+        }
+
+        return ret;
     }
 
     private boolean isWhitelistAllowed(String command, long guildID, long categoryID, long channelID)
     {
-        return true;
+        boolean ret = true;
+
+        try (SessionWrapper wrapper = new SessionWrapper(session))
+        {
+            WhiteBlackListMapper mapper = wrapper.getMapper(WhiteBlackListMapper.class);
+            if (mapper.getGuildWhitelistSize(command) > 0 && mapper.getGuildWhitelist(command, guildID).isEmpty() ||
+                    mapper.getCategoryWhitelistSize(command, guildID) > 0 && mapper.getCategoryWhitelist(command, guildID, categoryID).isEmpty() ||
+                    mapper.getChannelWhitelistSize(command, guildID) > 0 && mapper.getChannelWhitelist(command, guildID, channelID).isEmpty()
+            )
+                ret = false;
+        }
+
+        return ret;
     }
 }
