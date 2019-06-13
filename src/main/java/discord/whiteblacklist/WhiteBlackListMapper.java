@@ -8,6 +8,12 @@ import java.util.List;
 
 public interface WhiteBlackListMapper
 {
+    @Select("SELECT dm FROM bot.blacklist WHERE command = #{command}")
+    @Results(value = {
+            @Result(property = "dm", column = "dm")
+    })
+    boolean getDMBlacklist(String command);
+
     @Select("SELECT guild_id FROM bot.blacklist, bot.guild_blacklist " +
             "WHERE bot.blacklist.id = bot.guild_blacklist.blacklist_id " +
             "AND command = #{command} AND guild_id = {#guild_id}")
@@ -31,6 +37,12 @@ public interface WhiteBlackListMapper
             @Result(property = "channel_id", column = "channel_id")
     })
     List<Long> getChannelBlacklist(String command, long guild_id, long channel_id);
+
+    @Select("SELECT dm FROM bot.whitelist WHERE command = #{command}")
+    @Results(value = {
+            @Result(property = "dm", column = "dm")
+    })
+    boolean getDMWhitelist(String command);
 
     @Select("SELECT count(*) as count FROM bot.whitelist, bot.guild_whitelist " +
             "WHERE bot.whitelist.id = bot.guild_whitelist.whitelist_id " +

@@ -29,7 +29,15 @@ public class WhiteBlackList
 
     private boolean isNotBlacklistedDM(String command)
     {
-        return false;
+        boolean ret = true;
+        try (SessionWrapper wrapper = new SessionWrapper(session))
+        {
+            WhiteBlackListMapper mapper = wrapper.getMapper(WhiteBlackListMapper.class);
+            if (mapper.getDMBlacklist(command))
+                ret = false;
+        }
+
+        return ret;
     }
 
     private boolean isNotBlacklisted(String command, long guildID, long channelID)
@@ -64,7 +72,15 @@ public class WhiteBlackList
 
     private boolean isWhitelistAllowedDM(String command)
     {
-        return true;
+        boolean ret = true;
+        try (SessionWrapper wrapper = new SessionWrapper(session))
+        {
+            WhiteBlackListMapper mapper = wrapper.getMapper(WhiteBlackListMapper.class);
+            if (!mapper.getDMWhitelist(command))
+                ret = false;
+        }
+
+        return ret;
     }
 
     private boolean isWhitelistAllowed(String command, long guildID, long channelID)
