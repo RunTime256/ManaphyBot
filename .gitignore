@@ -109,3 +109,4 @@ mybatis-config.xml
 .idea/vcs.xml
 .idea/compiler.xml
 .idea/misc.xml
+/.idea/
