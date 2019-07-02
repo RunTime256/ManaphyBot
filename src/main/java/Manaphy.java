@@ -1,24 +1,23 @@
 import java.io.IOException;
 
 import sql.Session;
-import sql.SessionWrapper;
+import sql.SessionFactory;
 import bot.Bot;
 import bot.BotMapper;
 
 public class Manaphy
 {
-
     public static void main(String[] args) throws IOException
     {
-        Session session = new Session("mybatis-config.xml");
-        session.init();
+        SessionFactory.init("mybatis-config.xml");
 
         Bot bot;
 
-        try (SessionWrapper wrapper = new SessionWrapper(session))
+        // Get the bot info from the session
+        try (Session session = SessionFactory.getSession())
         {
             //select contact all contacts
-            BotMapper mapper = wrapper.getMapper(BotMapper.class);
+            BotMapper mapper = session.getMapper(BotMapper.class);
             bot = mapper.getBot("Zygarde");
         }
 
