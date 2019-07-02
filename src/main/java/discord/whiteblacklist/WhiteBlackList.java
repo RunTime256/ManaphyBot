@@ -5,6 +5,11 @@ import sql.SessionFactory;
 
 public class WhiteBlackList
 {
+    public WhiteBlackList()
+    {
+
+    }
+
     public boolean isAllowedDM(String command)
     {
         try (Session session = SessionFactory.getSession())

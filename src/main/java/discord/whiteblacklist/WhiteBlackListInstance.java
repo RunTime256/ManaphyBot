@@ -12,7 +12,8 @@ class WhiteBlackListInstance
     boolean isNotBlacklistedDM(String command)
     {
         boolean ret = true;
-        if (mapper.getDMBlacklist(command))
+        Boolean bool = mapper.getDMBlacklist(command);
+        if (bool == null || bool)
             ret = false;
 
         return ret;
@@ -42,7 +43,8 @@ class WhiteBlackListInstance
     boolean isWhitelistAllowedDM(String command)
     {
         boolean ret = true;
-        if (!mapper.getDMWhitelist(command))
+        Boolean bool = mapper.getDMWhitelist(command);
+        if (bool == null || bool)
             ret = false;
 
         return ret;
