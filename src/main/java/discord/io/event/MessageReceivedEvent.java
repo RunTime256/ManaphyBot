@@ -1,9 +1,13 @@
 package discord.io.event;
 
 import discord.components.DChannel;
+import discord.components.DGuild;
 import discord.components.DMessage;
 import discord.components.DAuthor;
+import org.javacord.api.entity.server.Server;
 import org.javacord.api.event.message.MessageCreateEvent;
+
+import java.util.Optional;
 
 public class MessageReceivedEvent
 {
@@ -33,5 +37,25 @@ public class MessageReceivedEvent
     public DMessage getMessage()
     {
         return message;
+    }
+
+    public DGuild getGuild()
+    {
+        Optional<Server> guild = event.getServer();
+        if (guild.isPresent())
+        {
+            return new DGuild(guild.get());
+        }
+        return null;
+    }
+
+    public boolean isDM()
+    {
+        return event.isPrivateMessage();
+    }
+
+    public boolean isServerMessage()
+    {
+        return event.isServerMessage();
     }
 }

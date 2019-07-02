@@ -17,6 +17,7 @@ public class MessageCommand
     private String name;
     private String description;
     private Map<String, MessageCommand> subCommands;
+    private MessageCommand parent;
     private CommandExecutor executor;
     private MessageVerifier verifier;
 
@@ -28,6 +29,7 @@ public class MessageCommand
         this.description = description;
         this.executor = executor;
         this.verifier = verifier;
+        this.parent = null;
     }
 
     public MessageCommand(String name, String description, List<MessageCommand> subCommands, CommandExecutor executor, MessageVerifier verifier)
@@ -42,6 +44,7 @@ public class MessageCommand
         for (MessageCommand subCommand: subCommands)
         {
             this.subCommands.put(subCommand.getName(), subCommand);
+            subCommand.setParent(this);
         }
     }
 
@@ -57,7 +60,23 @@ public class MessageCommand
         for (MessageCommand subCommand: subCommands)
         {
             this.subCommands.put(subCommand.getName(), subCommand);
+            subCommand.setParent(this);
         }
+    }
+
+    public String getFullName()
+    {
+        StringBuilder builder = new StringBuilder();
+        MessageCommand current = this;
+        while (current != null)
+        {
+            String spacedName = " " + current.getName();
+            builder.insert(0, spacedName);
+            current = current.getParent();
+        }
+        builder.deleteCharAt(0);
+
+        return builder.toString();
     }
 
     public String getName()
@@ -85,6 +104,11 @@ public class MessageCommand
         return subCommands.get(name);
     }
 
+    private MessageCommand getParent()
+    {
+        return parent;
+    }
+
     public void execute(String message, MessageReceivedEvent event) throws CommandException
     {
         if (executor == null || verifier == null)
@@ -97,5 +121,10 @@ public class MessageCommand
 
         VerifiedMessage verifiedMessage = verifier.verifyMessage(message, event);
         executor.runCommand(verifiedMessage);
+    }
+
+    private void setParent(MessageCommand parent)
+    {
+        this.parent = parent;
     }
 }
