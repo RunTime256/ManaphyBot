@@ -1,13 +1,13 @@
-package exception.bot;
+package exception.bot.command.help;
 
-import exception.ManaphyException;
+import exception.bot.command.CommandException;
 
 import java.awt.Color;
 
 /**
  * Thrown when there is no help implementation
  */
-public class NoHelpException extends ManaphyException
+public class NoHelpException extends CommandException
 {
     /**
      * Constructs with a message and a yellow color

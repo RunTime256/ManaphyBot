@@ -1,11 +1,14 @@
 package discord.executor;
 
+import discord.components.DCategory;
 import discord.components.DChannel;
 import discord.components.functionality.command.MessageCommand;
 import discord.components.functionality.verification.MessageVerifier;
 import discord.io.event.MessageReceivedEvent;
 import discord.io.response.ErrorResponse;
-import exception.bot.NoHelpException;
+import discord.whiteblacklist.WhiteBlackList;
+import exception.bot.BotException;
+import exception.bot.command.help.NoHelpException;
 import exception.bot.command.CommandException;
 import exception.bot.command.InvalidArgumentsException;
 
@@ -39,23 +42,51 @@ public class MessageReceivedExecutor
         MessageCommand command = getCommand(content);
         String message = combineContent(content);
 
-        if (command != null)
+        if (command != null && checkWhiteBlackList(command.getFullName(), event))
         {
             try
             {
-                try
-                {
-                    command.execute(message, event);
-                }
-                catch (InvalidArgumentsException e)
-                {
-                    sendHelpMessage(getCommandSequence(event.getMessage().getSplitContent(), content.size()), event, e);
-                }
+                tryExecute(command, message, content, event);
             }
             catch (Exception e)
             {
                 sendErrorMessage(e, event.getChannel());
             }
+        }
+    }
+
+    private boolean checkWhiteBlackList(String commandName, MessageReceivedEvent event)
+    {
+        WhiteBlackList whiteBlackList = new WhiteBlackList();
+        if (event.isDM())
+        {
+            return whiteBlackList.isAllowedDM(commandName);
+        }
+
+        if (event.isServerMessage())
+        {
+            long guildId = event.getGuild().getId();
+            long channelId = event.getChannel().getId();
+            DCategory category = event.getChannel().getCategory();
+            if (category != null)
+                return whiteBlackList.isAllowed(commandName, guildId, category.getId(), channelId);
+            else
+                return whiteBlackList.isAllowed(commandName, guildId, channelId);
+
+        }
+
+        return true;
+    }
+
+    private void tryExecute(MessageCommand command, String message, List<String> content, MessageReceivedEvent event) throws BotException
+    {
+        try
+        {
+            command.execute(message, event);
+        }
+        catch (InvalidArgumentsException e)
+        {
+            sendHelpMessage(getCommandSequence(event.getMessage().getSplitContent(), content.size()), event, e);
         }
     }
 
@@ -65,7 +96,7 @@ public class MessageReceivedExecutor
         response.sendErrorMessage();
     }
 
-    private void sendHelpMessage(String commandSequence, MessageReceivedEvent event, InvalidArgumentsException e) throws NoHelpException, CommandException
+    private void sendHelpMessage(String commandSequence, MessageReceivedEvent event, InvalidArgumentsException e) throws CommandException
     {
         MessageCommand help = commands.get("help");
         if (help == null)
@@ -103,7 +134,7 @@ public class MessageReceivedExecutor
             return null;
 
         MessageCommand currentCommand = commands.get(firstCommand);
-        while (content.size() > 0)
+        while (!content.isEmpty())
         {
             String subCommand = content.get(0);
 
