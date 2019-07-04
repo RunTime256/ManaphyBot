@@ -10,8 +10,8 @@ interface LogMapper
 {
     @Select("SELECT guild_id, channel_id FROM bot.log WHERE name = #{name}")
     @Results(value = {
-            @Result(property = "guild_id", column = "guild_id"),
-            @Result(property = "channel_id", column = "channel_id")
+            @Result(property = "guildId", column = "guild_id"),
+            @Result(property = "channelId", column = "channel_id")
     })
     LogInfo getLogInfo(@Param("name") String name);
 }

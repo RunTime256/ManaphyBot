@@ -15,4 +15,14 @@ public class DAuthor
     {
         return author.getId();
     }
+
+    public String getAvatar()
+    {
+        return author.getAvatar().getUrl().toString();
+    }
+
+    public String getFullName()
+    {
+        return author.getDiscriminatedName();
+    }
 }

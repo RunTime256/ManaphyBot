@@ -19,6 +19,12 @@ public class DEmbedBuilder
         return this;
     }
 
+    public DEmbedBuilder setIcon(String name, String url)
+    {
+        builder.setAuthor(name, "", url);
+        return this;
+    }
+
     public DEmbedBuilder setTitle(String title)
     {
         builder.setTitle(title);
@@ -37,6 +43,12 @@ public class DEmbedBuilder
         return this;
     }
 
+    public DEmbedBuilder setThumbnail(String url)
+    {
+        builder.setThumbnail(url);
+        return this;
+    }
+
     public DEmbedBuilder setFooter(String footer)
     {
         builder.setFooter(footer);
@@ -46,6 +58,18 @@ public class DEmbedBuilder
     public DEmbedBuilder addField(String name, String value)
     {
         builder.addField(name, value);
+        return this;
+    }
+
+    public DEmbedBuilder addField(String name, int value)
+    {
+        builder.addField(name, String.valueOf(value));
+        return this;
+    }
+
+    public DEmbedBuilder addField(String name, long value)
+    {
+        builder.addField(name, String.valueOf(value));
         return this;
     }
 
