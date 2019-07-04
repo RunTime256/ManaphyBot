@@ -1,5 +1,6 @@
 package discord.io.event;
 
+import discord.components.DApi;
 import discord.components.DChannel;
 import discord.components.DGuild;
 import discord.components.DMessage;
@@ -47,6 +48,11 @@ public class MessageReceivedEvent
             return new DGuild(guild.get());
         }
         return null;
+    }
+
+    public DApi getApi()
+    {
+        return new DApi(event.getApi());
     }
 
     public boolean isDM()

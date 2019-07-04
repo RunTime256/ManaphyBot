@@ -4,6 +4,7 @@ import discord.components.functionality.command.MessageCommand;
 import discord.io.listener.MessageReceivedListener;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
+import org.javacord.api.entity.activity.ActivityType;
 
 import java.util.List;
 
@@ -29,6 +30,8 @@ class DConnection
         connection = new DiscordApiBuilder().setToken(token).login().join();
 
         connection.addMessageCreateListener(messageReceivedListener);
+
+        connection.updateActivity(ActivityType.PLAYING, "+help war puzzle solve");
     }
 
     void stop()
