@@ -2,6 +2,7 @@ package discord.components;
 
 import org.javacord.api.entity.message.Message;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -21,5 +22,10 @@ public class DMessage
         Collections.addAll(list, message.getContent().split(" "));
 
         return list;
+    }
+
+    public Instant getTimestamp()
+    {
+        return message.getCreationTimestamp();
     }
 }

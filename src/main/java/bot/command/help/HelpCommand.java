@@ -90,7 +90,7 @@ public class HelpCommand
     {
         StringBuilder combined = new StringBuilder();
 
-        String title = "`" + prefix + commandString + "`\n";
+        String title = "`" + prefix + commandString + " " + superCommand.getSyntax() + "`\n";
         combined.append(title);
 
         String desc = superCommand.getDescription();

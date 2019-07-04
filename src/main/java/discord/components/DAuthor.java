@@ -10,4 +10,9 @@ public class DAuthor
     {
         this.author = author;
     }
+
+    public long getId()
+    {
+        return author.getId();
+    }
 }

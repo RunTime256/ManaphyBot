@@ -36,7 +36,7 @@ public class TestCommand
 
     private MessageCommand createTestMessageCommand()
     {
-        return new MessageCommand("message", "Test a message response", (this::testMessage), new TestMessageVerifier());
+        return new MessageCommand("message", "Test a message response", "<message>", (this::testMessage), new TestMessageVerifier());
     }
 
     private MessageCommand createTestErrorCommand()
