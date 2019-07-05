@@ -22,4 +22,13 @@ public class DApi
         else
             return null;
     }
+
+    public DRole getRoleById(long guildId, long roleId)
+    {
+        DGuild guild = getGuildById(guildId);
+        if (guild != null)
+            return guild.getRoleById(roleId);
+        else
+            return null;
+    }
 }

@@ -2,6 +2,7 @@ package discord.components;
 
 import org.javacord.api.entity.channel.ServerChannel;
 import org.javacord.api.entity.channel.TextChannel;
+import org.javacord.api.entity.permission.Role;
 import org.javacord.api.entity.server.Server;
 
 import java.util.Optional;
@@ -31,5 +32,14 @@ public class DGuild
         }
 
         return null;
+    }
+
+    public DRole getRoleById(long id)
+    {
+        Optional<Role> role = guild.getRoleById(id);
+        if (role.isPresent())
+            return new DRole(role.get());
+        else
+            return null;
     }
 }
