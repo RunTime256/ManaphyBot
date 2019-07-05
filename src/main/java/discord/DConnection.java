@@ -31,7 +31,7 @@ class DConnection
 
         connection.addMessageCreateListener(messageReceivedListener);
 
-        connection.updateActivity(ActivityType.PLAYING, "+help war puzzle solve");
+        connection.updateActivity(ActivityType.WATCHING, "twitch.tv/tgh_sr");
     }
 
     void stop()

@@ -1,7 +1,7 @@
 package bot.command;
 
 import bot.command.help.HelpCommand;
-import bot.command.misc.TestCommand;
+import bot.command.roles.RoleCommand;
 import discord.components.functionality.command.MessageCommand;
 
 import java.util.ArrayList;
@@ -9,17 +9,17 @@ import java.util.List;
 
 public class Commands
 {
-    private TestCommand testCommand;
+    private RoleCommand roleCommand;
 
     public Commands()
     {
-        testCommand = new TestCommand();
+        roleCommand = new RoleCommand();
     }
 
     public List<MessageCommand> getActiveCommands(String prefix)
     {
         List<MessageCommand> commands = new ArrayList<>();
-        commands.add(testCommand.getCommand());
+        commands.add(roleCommand.getCommand());
         commands.add(new HelpCommand(commands, prefix).getCommand());
 
         return commands;
