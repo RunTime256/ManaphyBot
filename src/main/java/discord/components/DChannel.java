@@ -34,13 +34,13 @@ public class DChannel
         return null;
     }
 
-    public void sendMessage(String message)
+    public DMessage sendMessage(String message)
     {
-        channel.sendMessage(message);
+        return new DMessage(channel.sendMessage(message).join());
     }
 
-    public void sendMessage(DEmbedBuilder builder)
+    public DMessage sendMessage(DEmbedBuilder builder)
     {
-        channel.sendMessage(builder.getBuilder());
+        return new DMessage(channel.sendMessage(builder.getBuilder()).join());
     }
 }

@@ -21,8 +21,8 @@ public class HelpCommand
     public HelpCommand(List<MessageCommand> executor, String prefix)
     {
         this.executor = new HashMap<>();
-        for (MessageCommand command: executor)
-            this.executor.put(command.getName(), command);
+        for (MessageCommand messageCommand: executor)
+            this.executor.put(messageCommand.getName(), messageCommand);
 
         this.command = createHelpCommand(prefix);
     }
@@ -40,31 +40,31 @@ public class HelpCommand
     private void help(VerifiedMessage<HelpContent> message)
     {
         HelpContent content = message.getContent();
+        String botName = content.getBotName();
         String prefix = content.getPrefix();
         String commandString = content.getCommandString();
-        MessageCommand command = content.getCommand();
+        MessageCommand messageCommand = content.getCommand();
         String exception = content.getException();
         MessageResponse sender = content.getSender();
 
-        DEmbedBuilder builder = buildHelp(prefix, commandString, command, exception);
+        DEmbedBuilder builder = buildHelp(botName, prefix, commandString, messageCommand, exception);
         sender.sendMessage(builder);
     }
 
-    private DEmbedBuilder buildHelp(String prefix, String commandString, MessageCommand command, String exception)
+    private DEmbedBuilder buildHelp(String botName, String prefix, String commandString, MessageCommand command, String exception)
     {
         DEmbedBuilder builder = new DEmbedBuilder();
-        String author = "Help with Manaphy";
+        String author = "Help with " + botName;
         String description;
         if (command != null)
             description = combineSubCommands(prefix, commandString, command);
         else
             description = combineCommands(prefix);
-        String footer = exception;
         Color color = new Color(97, 185, 221);
 
         builder.setAuthor(author).setColor(color);
-        if (!footer.isEmpty())
-            builder.setFooter(footer);
+        if (!exception.isEmpty())
+            builder.setFooter(exception);
         builder.setDescription(description);
 
         return builder;
@@ -78,8 +78,8 @@ public class HelpCommand
 
         for (String commandString: executor.keySet())
         {
-            MessageCommand command = executor.get(commandString);
-            String singleCommand = "**" + prefix + command.getName() + "** " + command.getDescription() + "\n\n";
+            MessageCommand messageCommand = executor.get(commandString);
+            String singleCommand = "**" + prefix + messageCommand.getName() + "** " + messageCommand.getDescription() + "\n\n";
             combined.append(singleCommand);
         }
 
@@ -102,10 +102,10 @@ public class HelpCommand
 
         StringBuilder subCommands = new StringBuilder();
 
-        for (MessageCommand command : getSubCommands(superCommand))
+        for (MessageCommand messageCommand : getSubCommands(superCommand))
         {
-            String subCommand = "**" + prefix + commandString + " " + command.getName() + "** "
-                    + command.getDescription() + "\n";
+            String subCommand = "**" + prefix + commandString + " " + messageCommand.getName() + "** "
+                    + messageCommand.getDescription() + "\n";
             subCommands.append(subCommand);
         }
 

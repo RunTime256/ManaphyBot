@@ -69,7 +69,7 @@ class WhiteBlackListInstance
 
         boolean ret = true;
         if ((isWhitelistAllowedDM(command) &&
-                mapper.getGuildWhitelist(command, guildID).isEmpty() && mapper.getChannelWhitelist(command, guildID, channelID).isEmpty()) ||
+                mapper.getGuildWhitelistSize(command) == 0 && mapper.getChannelWhitelistSize(command, guildID) == 0) ||
                 (mapper.getGuildWhitelistSize(command) > 0 && mapper.getGuildWhitelist(command, guildID).isEmpty() ||
                         mapper.getChannelWhitelistSize(command, guildID) > 0 && mapper.getChannelWhitelist(command, guildID, channelID).isEmpty()))
             ret = false;
@@ -83,8 +83,8 @@ class WhiteBlackListInstance
             return true;
 
         boolean ret = true;
-        if ((isWhitelistAllowedDM(command) && mapper.getGuildWhitelist(command, guildID).isEmpty() &&
-                mapper.getCategoryWhitelist(command, guildID, categoryID).isEmpty() && mapper.getChannelWhitelist(command, guildID, channelID).isEmpty()) ||
+        if ((isWhitelistAllowedDM(command) && mapper.getGuildWhitelistSize(command) == 0 &&
+                mapper.getCategoryWhitelistSize(command, guildID) == 0 && mapper.getChannelWhitelistSize(command, guildID) == 0) ||
                 (mapper.getGuildWhitelistSize(command) > 0 && mapper.getGuildWhitelist(command, guildID).isEmpty() ||
                 mapper.getCategoryWhitelistSize(command, guildID) > 0 && mapper.getCategoryWhitelist(command, guildID, categoryID).isEmpty() ||
                 mapper.getChannelWhitelistSize(command, guildID) > 0 && mapper.getChannelWhitelist(command, guildID, channelID).isEmpty()))

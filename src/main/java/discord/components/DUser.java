@@ -11,8 +11,38 @@ public class DUser
         this.user = user;
     }
 
+    public User getUser()
+    {
+        return user;
+    }
+
     public void addRole(DRole role)
     {
         user.addRole(role.getRole());
+    }
+
+    public void removeRole(DRole role)
+    {
+        user.removeRole(role.getRole());
+    }
+
+    public boolean hasRole(DRole role)
+    {
+        return role.hasRole(this);
+    }
+
+    public long getId()
+    {
+        return user.getId();
+    }
+
+    public String getMention()
+    {
+        return user.getMentionTag();
+    }
+
+    public String getName()
+    {
+        return user.getName();
     }
 }

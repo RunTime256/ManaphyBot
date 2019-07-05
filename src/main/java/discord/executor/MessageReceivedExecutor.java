@@ -98,6 +98,9 @@ public class MessageReceivedExecutor
 
     private void sendHelpMessage(String commandSequence, MessageReceivedEvent event, InvalidArgumentsException e) throws CommandException
     {
+        if (!checkWhiteBlackList("help", event))
+            return;
+
         MessageCommand help = commands.get("help");
         if (help == null)
             throw new NoHelpException("There was an error formatting your command, and no help implementation was available. " +

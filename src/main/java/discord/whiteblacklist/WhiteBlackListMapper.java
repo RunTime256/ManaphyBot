@@ -73,8 +73,8 @@ public interface WhiteBlackListMapper
     })
     List<Long> getGuildWhitelist(@Param("command") String command, @Param("guild_id") long guildId);
 
-    @Select("SELECT count(*) as count FROM bot.whitelist, bot.guild_whitelist " +
-            "WHERE bot.whitelist.id = bot.guild_whitelist.whitelist_id " +
+    @Select("SELECT count(*) as count FROM bot.whitelist, bot.category_whitelist " +
+            "WHERE bot.whitelist.id = bot.category_whitelist.whitelist_id " +
             "AND command = #{command} AND guild_id = #{guild_id}")
     @Results(value = {
             @Result(property = "count", column = "count")

@@ -37,8 +37,9 @@ public class HelpVerifier extends MessageVerifier<HelpContent>
         MessageCommand command = extractCommand(args);
         extractArgs(args);
         MessageResponse sender = new MessageResponse(event.getChannel());
+        String botName = event.getApi().getBot().getName();
 
-        return new VerifiedHelp(commandString, command, exception, sender, prefix);
+        return new VerifiedHelp(botName, commandString, command, exception, sender, prefix);
     }
 
     private MessageCommand extractCommand(List<String> message)

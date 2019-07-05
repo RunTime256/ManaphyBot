@@ -5,7 +5,9 @@ import discord.components.DChannel;
 import discord.components.DGuild;
 import discord.components.DMessage;
 import discord.components.DAuthor;
+import discord.components.DUser;
 import org.javacord.api.entity.server.Server;
+import org.javacord.api.entity.user.User;
 import org.javacord.api.event.message.MessageCreateEvent;
 
 import java.util.Optional;
@@ -28,6 +30,15 @@ public class MessageReceivedEvent
     public DAuthor getAuthor()
     {
         return author;
+    }
+
+    public DUser getUser()
+    {
+        Optional<User> user = event.getMessageAuthor().asUser();
+        if (user.isPresent())
+            return new DUser(user.get());
+        else
+            return null;
     }
 
     public DChannel getChannel()

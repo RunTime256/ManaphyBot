@@ -11,13 +11,18 @@ public class DRole
         this.role = role;
     }
 
-    public long getID()
+    public long getId()
     {
         return role.getId();
     }
 
-    Role getRole()
+    public Role getRole()
     {
         return role;
+    }
+
+    public boolean hasRole(DUser user)
+    {
+        return role.getUsers().contains(user.getUser());
     }
 }

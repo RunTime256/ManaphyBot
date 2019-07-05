@@ -31,4 +31,9 @@ public class DApi
         else
             return null;
     }
+
+    public DUser getBot()
+    {
+        return new DUser(api.getYourself());
+    }
 }

@@ -2,6 +2,7 @@ package discord.io.response;
 
 import discord.builder.DEmbedBuilder;
 import discord.components.DChannel;
+import discord.components.DMessage;
 
 public class MessageResponse
 {
@@ -12,18 +13,18 @@ public class MessageResponse
         this.channel = channel;
     }
 
-    public void sendMessage(String message)
+    public DMessage sendMessage(String message)
     {
-        channel.sendMessage(message);
+        return channel.sendMessage(message);
     }
 
-    public void sendMessage(int x)
+    public DMessage sendMessage(int x)
     {
-        channel.sendMessage(String.valueOf(x));
+        return channel.sendMessage(String.valueOf(x));
     }
 
-    public void sendMessage(DEmbedBuilder builder)
+    public DMessage sendMessage(DEmbedBuilder builder)
     {
-        channel.sendMessage(builder);
+        return channel.sendMessage(builder);
     }
 }

@@ -28,4 +28,9 @@ public class DMessage
     {
         return message.getCreationTimestamp();
     }
+
+    public void deleteMessage()
+    {
+        message.delete();
+    }
 }
