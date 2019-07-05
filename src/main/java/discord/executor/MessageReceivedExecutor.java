@@ -129,6 +129,8 @@ public class MessageReceivedExecutor
         String firstCommand = content.remove(0);
         if (firstCommand.startsWith(prefix))
             firstCommand = removePrefix(firstCommand);
+        else
+            return null;
 
         if (!hasCommand(firstCommand))
             return null;
