@@ -28,7 +28,7 @@ public class RoleAddVerifier extends MessageVerifier<RoleAddContent>
         if (message.isEmpty())
             throw new InvalidArgumentsException("Please provide a role name.");
 
-        return message;
+        return message.toLowerCase();
     }
 
     private DRole verifyRole(String roleName, DGuild guild) throws InvalidArgumentsException
