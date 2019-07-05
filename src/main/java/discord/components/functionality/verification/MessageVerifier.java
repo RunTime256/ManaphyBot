@@ -23,6 +23,21 @@ public abstract class MessageVerifier<T>
         return list;
     }
 
+    protected String combineContent(List<String> message)
+    {
+        StringBuilder builder = new StringBuilder();
+        for (String content: message)
+        {
+            String add = content + " ";
+            builder.append(add);
+        }
+
+        if (builder.length() > 0)
+            builder.deleteCharAt(builder.length() - 1);
+
+        return builder.toString();
+    }
+
     protected String removeArgumentPrefix(String arg)
     {
         return arg.substring(ARGUMENT.length());

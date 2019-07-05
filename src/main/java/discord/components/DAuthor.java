@@ -10,4 +10,19 @@ public class DAuthor
     {
         this.author = author;
     }
+
+    public long getId()
+    {
+        return author.getId();
+    }
+
+    public String getAvatar()
+    {
+        return author.getAvatar().getUrl().toString();
+    }
+
+    public String getFullName()
+    {
+        return author.getDiscriminatedName();
+    }
 }

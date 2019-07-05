@@ -1,6 +1,10 @@
 package discord.components;
 
+import org.javacord.api.entity.channel.ServerChannel;
+import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.server.Server;
+
+import java.util.Optional;
 
 public class DGuild
 {
@@ -14,5 +18,18 @@ public class DGuild
     public long getId()
     {
         return guild.getId();
+    }
+
+    public DChannel getChannelById(long id)
+    {
+        Optional<ServerChannel> channel = guild.getChannelById(id);
+        if (channel.isPresent())
+        {
+            Optional<TextChannel> textChannel = channel.get().asTextChannel();
+            if (textChannel.isPresent())
+                return new DChannel(textChannel.get());
+        }
+
+        return null;
     }
 }

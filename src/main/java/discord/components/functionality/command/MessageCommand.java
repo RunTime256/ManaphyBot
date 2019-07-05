@@ -16,6 +16,7 @@ public class MessageCommand
 {
     private String name;
     private String description;
+    private String syntax;
     private Map<String, MessageCommand> subCommands;
     private MessageCommand parent;
     private CommandExecutor executor;
@@ -27,6 +28,19 @@ public class MessageCommand
 
         this.name = name;
         this.description = description;
+        this.syntax = "";
+        this.executor = executor;
+        this.verifier = verifier;
+        this.parent = null;
+    }
+
+    public MessageCommand(String name, String description, String syntax, CommandExecutor executor, MessageVerifier verifier)
+    {
+        this.subCommands = new HashMap<>();
+
+        this.name = name;
+        this.description = description;
+        this.syntax = syntax;
         this.executor = executor;
         this.verifier = verifier;
         this.parent = null;
@@ -38,6 +52,24 @@ public class MessageCommand
 
         this.name = name;
         this.description = description;
+        this.syntax = "";
+        this.executor = executor;
+        this.verifier = verifier;
+
+        for (MessageCommand subCommand: subCommands)
+        {
+            this.subCommands.put(subCommand.getName(), subCommand);
+            subCommand.setParent(this);
+        }
+    }
+
+    public MessageCommand(String name, String description, String syntax, List<MessageCommand> subCommands, CommandExecutor executor, MessageVerifier verifier)
+    {
+        this.subCommands = new HashMap<>();
+
+        this.name = name;
+        this.description = description;
+        this.syntax = syntax;
         this.executor = executor;
         this.verifier = verifier;
 
@@ -54,6 +86,7 @@ public class MessageCommand
 
         this.name = name;
         this.description = description;
+        this.syntax = "";
         this.executor = null;
         this.verifier = null;
 
@@ -87,6 +120,11 @@ public class MessageCommand
     public String getDescription()
     {
         return description;
+    }
+
+    public String getSyntax()
+    {
+        return syntax;
     }
 
     public List<String> getSubCommands()
