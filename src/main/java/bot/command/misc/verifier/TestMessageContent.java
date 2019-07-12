@@ -2,6 +2,9 @@ package bot.command.misc.verifier;
 
 import discord.io.response.MessageResponse;
 
+/**
+ * Content for a test message
+ */
 public class TestMessageContent
 {
     private String message;

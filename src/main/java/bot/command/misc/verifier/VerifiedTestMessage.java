@@ -3,6 +3,9 @@ package bot.command.misc.verifier;
 import discord.components.functionality.verification.VerifiedMessage;
 import discord.io.response.MessageResponse;
 
+/**
+ * Creates a verified test message command
+ */
 public class VerifiedTestMessage implements VerifiedMessage<TestMessageContent>
 {
     private TestMessageContent content;
