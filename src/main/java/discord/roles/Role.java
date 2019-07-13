@@ -3,13 +3,11 @@ package discord.roles;
 import sql.Session;
 import sql.SessionFactory;
 
+/**
+ * Role queries
+ */
 public class Role
 {
-    public Role()
-    {
-
-    }
-
     public Long getRole(long guildId, String name)
     {
         try (Session session = SessionFactory.getSession())

@@ -2,6 +2,9 @@ package discord.components;
 
 import org.javacord.api.entity.user.User;
 
+/**
+ * Wrapper for Discord users
+ */
 public class DUser
 {
     private User user;

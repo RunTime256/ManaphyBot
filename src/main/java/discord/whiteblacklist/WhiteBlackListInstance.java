@@ -1,5 +1,8 @@
 package discord.whiteblacklist;
 
+/**
+ * Instance for whitelists and blacklists
+ */
 class WhiteBlackListInstance
 {
     private WhiteBlackListMapper mapper;

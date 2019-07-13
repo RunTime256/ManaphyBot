@@ -2,6 +2,9 @@ package discord.components;
 
 import org.javacord.api.entity.permission.Role;
 
+/**
+ * Wrapper for Discord roles
+ */
 public class DRole
 {
     private Role role;

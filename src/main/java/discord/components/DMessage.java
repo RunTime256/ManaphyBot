@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Wrapper for Discord messages
+ */
 public class DMessage
 {
     private Message message;

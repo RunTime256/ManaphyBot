@@ -1,5 +1,7 @@
 import java.io.IOException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import sql.Session;
 import sql.SessionFactory;
 import bot.Bot;
@@ -7,11 +9,13 @@ import bot.BotMapper;
 
 public class Manaphy
 {
+    private static final Logger logger = LogManager.getLogger(Manaphy.class);
+
     public static void main(String[] args) throws IOException
     {
         if (args.length < 1)
         {
-            System.out.println("Provide bot name as argument");
+            logger.error("Provide bot name as argument");
             return;
         }
 

@@ -2,6 +2,9 @@ package discord.components;
 
 import org.javacord.api.entity.message.MessageAuthor;
 
+/**
+ * Wrapper for Discord message authors
+ */
 public class DAuthor
 {
     private MessageAuthor author;

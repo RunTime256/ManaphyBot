@@ -11,10 +11,16 @@ import exception.bot.command.CommandException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Command for test functionality
+ */
 public class TestCommand
 {
     private MessageCommand command;
 
+    /**
+     * Construct test command
+     */
     public TestCommand()
     {
         command = createTestCommand();
@@ -25,6 +31,11 @@ public class TestCommand
         return command;
     }
 
+    /**
+     * Creates test commands
+     *
+     * @return command with test commands
+     */
     private MessageCommand createTestCommand()
     {
         List<MessageCommand> subCommands = new ArrayList<>();

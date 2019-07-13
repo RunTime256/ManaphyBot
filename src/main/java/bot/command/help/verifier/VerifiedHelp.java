@@ -4,6 +4,9 @@ import discord.components.functionality.command.MessageCommand;
 import discord.components.functionality.verification.VerifiedMessage;
 import discord.io.response.MessageResponse;
 
+/**
+ * Cretes a verified help command
+ */
 public class VerifiedHelp implements VerifiedMessage<HelpContent>
 {
     private HelpContent content;
@@ -12,6 +15,7 @@ public class VerifiedHelp implements VerifiedMessage<HelpContent>
     {
         content = new HelpContent(botName, commandString, command, exception, sender, prefix);
     }
+
     @Override
     public HelpContent getContent()
     {

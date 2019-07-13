@@ -1,5 +1,8 @@
 package discord.roles;
 
+/**
+ * Instance for roles
+ */
 class RoleInstance
 {
     private RoleMapper mapper;

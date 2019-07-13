@@ -7,6 +7,9 @@ import org.javacord.api.entity.server.Server;
 
 import java.util.Optional;
 
+/**
+ * Wrapper for discord guilds
+ */
 public class DGuild
 {
     private Server guild;

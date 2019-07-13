@@ -4,13 +4,11 @@ import discord.components.functionality.logging.LogInfo;
 import sql.Session;
 import sql.SessionFactory;
 
+/**
+ * Log queries
+ */
 public class Log
 {
-    public Log()
-    {
-
-    }
-
     public LogInfo getLogInfo(String name)
     {
         try (Session session = SessionFactory.getSession())

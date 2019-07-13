@@ -3,13 +3,11 @@ package discord.channels;
 import sql.Session;
 import sql.SessionFactory;
 
+/**
+ * Channel queries
+ */
 public class Channel
 {
-    public Channel()
-    {
-
-    }
-
     public Long getChannelId(String guildName, String channelName)
     {
         try (Session session = SessionFactory.getSession())

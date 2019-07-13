@@ -5,10 +5,20 @@ import discord.components.DApi;
 import discord.components.DChannel;
 import discord.components.DGuild;
 
+/**
+ * Response creator for logs
+ */
 public class LogResponse
 {
     private MessageResponse response;
 
+    /**
+     * Constructs with api, guild, and channel
+     *
+     * @param api Discord api
+     * @param guildId id of log guild
+     * @param channelId id of log channel
+     */
     public LogResponse(DApi api, long guildId, long channelId)
     {
         DGuild guild = api.getGuildById(guildId);

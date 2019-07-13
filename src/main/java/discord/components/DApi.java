@@ -5,6 +5,9 @@ import org.javacord.api.entity.server.Server;
 
 import java.util.Optional;
 
+/**
+ * Wrapper for Discord api
+ */
 public class DApi
 {
     private DiscordApi api;

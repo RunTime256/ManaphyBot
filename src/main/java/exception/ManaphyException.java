@@ -7,7 +7,7 @@ import java.awt.Color;
  */
 public class ManaphyException extends Exception
 {
-    private Color color;
+    private final Color color;
 
     /**
      * Constructs with a message

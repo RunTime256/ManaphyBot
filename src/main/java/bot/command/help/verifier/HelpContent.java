@@ -3,6 +3,9 @@ package bot.command.help.verifier;
 import discord.components.functionality.command.MessageCommand;
 import discord.io.response.MessageResponse;
 
+/**
+ * Content for help command
+ */
 public class HelpContent
 {
     private String prefix;

@@ -13,11 +13,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Command for help functionality
+ */
 public class HelpCommand
 {
     private Map<String, MessageCommand> executor;
     private MessageCommand command;
 
+    /**
+     * Construct help command with commands and bot prefix
+     *
+     * @param executor list of commands to reference
+     * @param prefix bot prefix
+     */
     public HelpCommand(List<MessageCommand> executor, String prefix)
     {
         this.executor = new HashMap<>();
@@ -51,6 +60,16 @@ public class HelpCommand
         sender.sendMessage(builder);
     }
 
+    /**
+     * Creates embed builder for help
+     *
+     * @param botName name of the bot
+     * @param prefix prefix for the bot
+     * @param commandString command sequence
+     * @param command main command
+     * @param exception exception string if an exception was triggered
+     * @return embed builder for
+     */
     private DEmbedBuilder buildHelp(String botName, String prefix, String commandString, MessageCommand command, String exception)
     {
         DEmbedBuilder builder = new DEmbedBuilder();
@@ -70,6 +89,12 @@ public class HelpCommand
         return builder;
     }
 
+    /**
+     * Construct string all main commands
+     *
+     * @param prefix bot prefix
+     * @return detailed list of commands
+     */
     private String combineCommands(String prefix)
     {
         StringBuilder combined = new StringBuilder();
@@ -86,6 +111,14 @@ public class HelpCommand
         return combined.toString();
     }
 
+    /**
+     * Construct string detailing sub-commands
+     *
+     * @param prefix bot prefix
+     * @param commandString command sequence
+     * @param superCommand main command
+     * @return detailed sub-commands
+     */
     private String combineSubCommands(String prefix, String commandString, MessageCommand superCommand)
     {
         StringBuilder combined = new StringBuilder();

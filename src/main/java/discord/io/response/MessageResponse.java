@@ -4,10 +4,18 @@ import discord.builder.DEmbedBuilder;
 import discord.components.DChannel;
 import discord.components.DMessage;
 
+/**
+ * Response creator for errors
+ */
 public class MessageResponse
 {
     private DChannel channel;
 
+    /**
+     * Constructs with a channel
+     *
+     * @param channel channel to send response to
+     */
     public MessageResponse(DChannel channel)
     {
         this.channel = channel;

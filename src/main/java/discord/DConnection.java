@@ -8,12 +8,22 @@ import org.javacord.api.entity.activity.ActivityType;
 
 import java.util.List;
 
+/**
+ * Connection to Discord
+ */
 class DConnection
 {
     private String token;
     private DiscordApi connection;
     private MessageReceivedListener messageReceivedListener;
 
+    /**
+     * Constructs a connection to Discord
+     *
+     * @param token bot token
+     * @param prefix prefix for standard users
+     * @param botPrefix prefix for bots
+     */
     DConnection(String token, String prefix, String botPrefix)
     {
         this.token = token;
