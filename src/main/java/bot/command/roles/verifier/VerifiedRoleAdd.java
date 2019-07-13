@@ -6,6 +6,9 @@ import discord.components.functionality.verification.VerifiedMessage;
 import discord.io.response.MessageResponse;
 import discord.io.response.RoleResponse;
 
+/**
+ * Creates a verified role add command
+ */
 public class VerifiedRoleAdd implements VerifiedMessage<RoleAddContent>
 {
     private RoleAddContent content;

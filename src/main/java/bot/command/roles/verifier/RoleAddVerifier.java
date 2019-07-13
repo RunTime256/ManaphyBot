@@ -12,6 +12,9 @@ import discord.io.response.RoleResponse;
 import discord.roles.Role;
 import exception.bot.command.InvalidArgumentsException;
 
+/**
+ * Verifies a role add command
+ */
 public class RoleAddVerifier extends MessageVerifier<RoleAddContent>
 {
     @Override
@@ -23,6 +26,13 @@ public class RoleAddVerifier extends MessageVerifier<RoleAddContent>
         return new VerifiedRoleAdd(dMessage, user, new MessageResponse(event.getChannel()), new RoleResponse(user, role));
     }
 
+    /**
+     * Verifies role name
+     *
+     * @param message message content
+     * @return role name
+     * @throws InvalidArgumentsException if role name was not provided
+     */
     private String verifyRoleName(String message) throws InvalidArgumentsException
     {
         if (message.isEmpty())
@@ -31,6 +41,14 @@ public class RoleAddVerifier extends MessageVerifier<RoleAddContent>
         return message.toLowerCase();
     }
 
+    /**
+     * Verifies role
+     *
+     * @param roleName name of role
+     * @param guild guild to get role from
+     * @return role
+     * @throws InvalidArgumentsException if the role does not exist in the database or guild
+     */
     private DRole verifyRole(String roleName, DGuild guild) throws InvalidArgumentsException
     {
         Role role = new Role();
@@ -44,6 +62,13 @@ public class RoleAddVerifier extends MessageVerifier<RoleAddContent>
         return dRole;
     }
 
+    /**
+     * Verifies the user is in the guild to add the role
+     *
+     * @param user user to add role to
+     * @return user
+     * @throws InvalidArgumentsException if the user is not in the guild
+     */
     private DUser verifyUser(DUser user) throws InvalidArgumentsException
     {
         if (user == null)

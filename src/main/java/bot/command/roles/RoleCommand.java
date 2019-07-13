@@ -11,6 +11,9 @@ import exception.discord.roles.UserAlreadyHasRoleException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Command for role functionality
+ */
 public class RoleCommand
 {
     private MessageCommand command;

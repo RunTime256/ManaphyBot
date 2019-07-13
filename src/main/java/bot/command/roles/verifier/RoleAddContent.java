@@ -5,9 +5,10 @@ import discord.components.DUser;
 import discord.io.response.MessageResponse;
 import discord.io.response.RoleResponse;
 import exception.discord.roles.UserAlreadyHasRoleException;
-import exception.discord.roles.UserDoesNotHaveRoleException;
-import org.apache.ibatis.annotations.Param;
 
+/**
+ * Content for a role add
+ */
 public class RoleAddContent
 {
     private DMessage message;
@@ -41,10 +42,5 @@ public class RoleAddContent
     public void addRole() throws UserAlreadyHasRoleException
     {
         roleAdder.addRole();
-    }
-
-    public void removeRole() throws UserDoesNotHaveRoleException
-    {
-        roleAdder.removeRole();
     }
 }
