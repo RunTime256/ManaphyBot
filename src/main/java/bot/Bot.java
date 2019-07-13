@@ -10,6 +10,7 @@ public class Bot
 {
     private Discord discord;
     private String name;
+    private String token;
     private String prefix;
     private Commands commands;
 
