@@ -12,6 +12,9 @@ import org.javacord.api.event.message.MessageCreateEvent;
 
 import java.util.Optional;
 
+/**
+ * Wrapper for Message Creation Events
+ */
 public class MessageReceivedEvent
 {
     private MessageCreateEvent event;

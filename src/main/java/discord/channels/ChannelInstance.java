@@ -1,5 +1,8 @@
 package discord.channels;
 
+/**
+ * Instance for channels
+ */
 class ChannelInstance
 {
     private ChannelMapper mapper;

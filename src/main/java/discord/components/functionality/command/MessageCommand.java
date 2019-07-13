@@ -12,6 +12,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Command to run from messages
+ */
 public class MessageCommand
 {
     private String name;
@@ -22,6 +25,14 @@ public class MessageCommand
     private CommandExecutor executor;
     private MessageVerifier verifier;
 
+    /**
+     * Constructs message command
+     *
+     * @param name
+     * @param description
+     * @param executor
+     * @param verifier
+     */
     public MessageCommand(String name, String description, CommandExecutor executor, MessageVerifier verifier)
     {
         this.subCommands = new HashMap<>();
@@ -34,6 +45,15 @@ public class MessageCommand
         this.parent = null;
     }
 
+    /**
+     * Constructs message command
+     *
+     * @param name
+     * @param description
+     * @param syntax
+     * @param executor
+     * @param verifier
+     */
     public MessageCommand(String name, String description, String syntax, CommandExecutor executor, MessageVerifier verifier)
     {
         this.subCommands = new HashMap<>();
@@ -46,6 +66,15 @@ public class MessageCommand
         this.parent = null;
     }
 
+    /**
+     * Constructs message command with sub-commands
+     *
+     * @param name
+     * @param description
+     * @param subCommands
+     * @param executor
+     * @param verifier
+     */
     public MessageCommand(String name, String description, List<MessageCommand> subCommands, CommandExecutor executor, MessageVerifier verifier)
     {
         this.subCommands = new HashMap<>();
@@ -63,6 +92,16 @@ public class MessageCommand
         }
     }
 
+    /**
+     * Constructs message command with sub-commands
+     *
+     * @param name
+     * @param description
+     * @param syntax
+     * @param subCommands
+     * @param executor
+     * @param verifier
+     */
     public MessageCommand(String name, String description, String syntax, List<MessageCommand> subCommands, CommandExecutor executor, MessageVerifier verifier)
     {
         this.subCommands = new HashMap<>();
@@ -80,6 +119,13 @@ public class MessageCommand
         }
     }
 
+    /**
+     * Constructs message command with sub commands but no functionality
+     *
+     * @param name
+     * @param description
+     * @param subCommands
+     */
     public MessageCommand(String name, String description, List<MessageCommand> subCommands)
     {
         this.subCommands = new HashMap<>();
@@ -142,11 +188,13 @@ public class MessageCommand
         return subCommands.get(name);
     }
 
-    private MessageCommand getParent()
-    {
-        return parent;
-    }
-
+    /**
+     * Executes a command
+     *
+     * @param message message content
+     * @param event event received
+     * @throws CommandException if an error occurs when running the command
+     */
     public void execute(String message, MessageReceivedEvent event) throws CommandException
     {
         if (executor == null || verifier == null)
@@ -164,5 +212,10 @@ public class MessageCommand
     private void setParent(MessageCommand parent)
     {
         this.parent = parent;
+    }
+
+    private MessageCommand getParent()
+    {
+        return parent;
     }
 }

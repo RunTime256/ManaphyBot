@@ -8,11 +8,20 @@ import org.javacord.api.listener.message.MessageCreateListener;
 
 import java.util.List;
 
+/**
+ * Listens for new messages
+ */
 public class MessageReceivedListener implements MessageCreateListener
 {
     private MessageReceivedExecutor executor;
     private MessageReceivedExecutor botCommandExecutor;
 
+    /**
+     * Constructs a listener with command prefixes
+     *
+     * @param prefix prefix for standard users
+     * @param botPrefix prefix for bots
+     */
     public MessageReceivedListener(String prefix, String botPrefix)
     {
         executor = new MessageReceivedExecutor(prefix);
@@ -25,6 +34,11 @@ public class MessageReceivedListener implements MessageCreateListener
             executor.addCommand(command);
     }
 
+    /**
+     * Executes a command upon message creation
+     *
+     * @param messageCreateEvent new message event
+     */
     @Override
     public void onMessageCreate(MessageCreateEvent messageCreateEvent)
     {

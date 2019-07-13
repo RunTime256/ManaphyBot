@@ -4,6 +4,9 @@ import org.javacord.api.entity.message.embed.EmbedBuilder;
 
 import java.awt.*;
 
+/**
+ * Wrapper for Discord embed builders
+ */
 public class DEmbedBuilder
 {
     private EmbedBuilder builder;

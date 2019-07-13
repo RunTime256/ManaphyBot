@@ -6,11 +6,20 @@ import exception.ManaphyException;
 
 import java.awt.*;
 
+/**
+ * Response creator for errors
+ */
 public class ErrorResponse
 {
     private Exception exception;
     private DChannel channel;
 
+    /**
+     * Constructs with an exception and channel
+     *
+     * @param exception exception thrown
+     * @param channel channel to send response to
+     */
     public ErrorResponse(Exception exception, DChannel channel)
     {
         this.exception = exception;
@@ -24,6 +33,11 @@ public class ErrorResponse
         response.sendMessage(createErrorEmbed());
     }
 
+    /**
+     * Creates embed for errors
+     *
+     * @return builder for error embed
+     */
     private DEmbedBuilder createErrorEmbed()
     {
         exception.printStackTrace();

@@ -17,11 +17,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Runs commands
+ */
 public class MessageReceivedExecutor
 {
     private Map<String, MessageCommand> commands;
     private String prefix;
 
+    /**
+     * Constructs with prefix
+     *
+     * @param prefix bot prefix
+     */
     public MessageReceivedExecutor(String prefix)
     {
         commands = new HashMap<>();
@@ -33,6 +41,11 @@ public class MessageReceivedExecutor
         commands.put(command.getName(), command);
     }
 
+    /**
+     * Executes command
+     *
+     * @param event message received event
+     */
     public void execute(MessageReceivedEvent event)
     {
         List<String> content = event.getMessage().getSplitContent();
@@ -55,6 +68,13 @@ public class MessageReceivedExecutor
         }
     }
 
+    /**
+     * Checks whitelist and blacklist to see if the command can be run in its current location
+     *
+     * @param commandName name of command
+     * @param event message received event
+     * @return if the command can be executed
+     */
     private boolean checkWhiteBlackList(String commandName, MessageReceivedEvent event)
     {
         WhiteBlackList whiteBlackList = new WhiteBlackList();
@@ -78,6 +98,16 @@ public class MessageReceivedExecutor
         return true;
     }
 
+
+    /**
+     * Tries to execute command, and sends help message if there is an invalid argument
+     *
+     * @param command command to execute
+     * @param message message to get arguments from
+     * @param content split message content
+     * @param event message received event
+     * @throws BotException if an exception was thrown from the bot
+     */
     private void tryExecute(MessageCommand command, String message, List<String> content, MessageReceivedEvent event) throws BotException
     {
         try
@@ -90,13 +120,27 @@ public class MessageReceivedExecutor
         }
     }
 
-    private void sendErrorMessage(Exception e, DChannel channel)
+    /**
+     * Sends error message
+     *
+     * @param exception exception thrown
+     * @param channel channel to send response to
+     */
+    private void sendErrorMessage(Exception exception, DChannel channel)
     {
-        ErrorResponse response = new ErrorResponse(e, channel);
+        ErrorResponse response = new ErrorResponse(exception, channel);
         response.sendErrorMessage();
     }
 
-    private void sendHelpMessage(String commandSequence, MessageReceivedEvent event, InvalidArgumentsException e) throws CommandException
+    /**
+     * Sends help message
+     *
+     * @param commandSequence sequence of commands ran
+     * @param event message received event
+     * @param exception exception thrown
+     * @throws CommandException if there was an issue running the help command
+     */
+    private void sendHelpMessage(String commandSequence, MessageReceivedEvent event, InvalidArgumentsException exception) throws CommandException
     {
         if (!checkWhiteBlackList("help", event))
             return;
@@ -107,10 +151,10 @@ public class MessageReceivedExecutor
                     "Please refer to any previous announcements on how to format the command correctly.");
 
         String errorCommand;
-        if (e.getMessage().isEmpty())
+        if (exception.getMessage().isEmpty())
             errorCommand = commandSequence;
         else
-            errorCommand = commandSequence + " " + MessageVerifier.ARGUMENT + "e " + e.getMessage();
+            errorCommand = commandSequence + " " + MessageVerifier.ARGUMENT + "e " + exception.getMessage();
 
         help.execute(errorCommand, event);
     }

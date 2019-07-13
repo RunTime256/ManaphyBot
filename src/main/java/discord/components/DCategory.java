@@ -2,6 +2,9 @@ package discord.components;
 
 import org.javacord.api.entity.channel.ChannelCategory;
 
+/**
+ * Wrapper for Discord categories
+ */
 public class DCategory
 {
     private ChannelCategory category;

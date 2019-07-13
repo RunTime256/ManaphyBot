@@ -7,6 +7,9 @@ import org.javacord.api.entity.channel.TextChannel;
 
 import java.util.Optional;
 
+/**
+ * Wrapper for Discord channels
+ */
 public class DChannel
 {
     private TextChannel channel;
