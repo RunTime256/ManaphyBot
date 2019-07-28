@@ -4,6 +4,7 @@ import org.javacord.api.entity.channel.ServerChannel;
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.permission.Role;
 import org.javacord.api.entity.server.Server;
+import org.javacord.api.entity.user.User;
 
 import java.util.Optional;
 
@@ -42,6 +43,15 @@ public class DGuild
         Optional<Role> role = guild.getRoleById(id);
         if (role.isPresent())
             return new DRole(role.get());
+        else
+            return null;
+    }
+
+    public DUser getUserById(long id)
+    {
+        Optional<User> user = guild.getMemberById(id);
+        if (user.isPresent())
+            return new DUser(user.get());
         else
             return null;
     }

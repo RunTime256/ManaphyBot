@@ -90,6 +90,9 @@ public class MessageReceivedExecutor
                 command.execute(message, event);
                 return true;
             }
+            catch (InvalidArgumentsException ignored)
+            {
+            }
             catch (Exception e)
             {
                 sendErrorMessage(e, event.getChannel());
