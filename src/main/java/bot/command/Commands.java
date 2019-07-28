@@ -12,14 +12,11 @@ import java.util.List;
  */
 public class Commands
 {
-    private TestCommand testCommand;
-
     /**
      * Construct commands
      */
     public Commands()
     {
-        testCommand = new TestCommand();
     }
 
     /**
@@ -31,7 +28,6 @@ public class Commands
     public List<MessageCommand> getActiveCommands(String prefix)
     {
         List<MessageCommand> commands = new ArrayList<>();
-        commands.add(testCommand.getCommand());
         commands.add(new HelpCommand(commands, prefix).getCommand());
 
         return commands;

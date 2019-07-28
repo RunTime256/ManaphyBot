@@ -1,6 +1,7 @@
 package discord.components;
 
 import discord.builder.DEmbedBuilder;
+import discord.builder.DMessageBuilder;
 import org.javacord.api.entity.channel.ChannelCategory;
 import org.javacord.api.entity.channel.ServerTextChannel;
 import org.javacord.api.entity.channel.TextChannel;
@@ -45,5 +46,10 @@ public class DChannel
     public DMessage sendMessage(DEmbedBuilder builder)
     {
         return new DMessage(channel.sendMessage(builder.getBuilder()).join());
+    }
+
+    public DMessage sendMessage(DMessageBuilder builder)
+    {
+        return new DMessage(builder.getBuilder().send(channel).join());
     }
 }

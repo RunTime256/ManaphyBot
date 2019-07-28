@@ -1,6 +1,7 @@
 package discord.io.response;
 
 import discord.builder.DEmbedBuilder;
+import discord.builder.DMessageBuilder;
 import discord.components.DChannel;
 import discord.components.DMessage;
 
@@ -32,6 +33,11 @@ public class MessageResponse
     }
 
     public DMessage sendMessage(DEmbedBuilder builder)
+    {
+        return channel.sendMessage(builder);
+    }
+
+    public DMessage sendMessage(DMessageBuilder builder)
     {
         return channel.sendMessage(builder);
     }
