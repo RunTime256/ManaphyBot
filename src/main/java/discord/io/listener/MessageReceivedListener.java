@@ -14,7 +14,8 @@ import java.util.List;
 public class MessageReceivedListener implements MessageCreateListener
 {
     private MessageReceivedExecutor executor;
-    private MessageReceivedExecutor botCommandExecutor;
+    private MessageReceivedExecutor secretExecutor;
+    private MessageReceivedExecutor botExecutor;
 
     /**
      * Constructs a listener with command prefixes
@@ -25,13 +26,26 @@ public class MessageReceivedListener implements MessageCreateListener
     public MessageReceivedListener(String prefix, String botPrefix)
     {
         executor = new MessageReceivedExecutor(prefix);
-        botCommandExecutor = new MessageReceivedExecutor(botPrefix);
+        secretExecutor = new MessageReceivedExecutor(prefix);
+        botExecutor = new MessageReceivedExecutor(botPrefix);
     }
 
     public void addCommands(List<MessageCommand> commands)
     {
         for (MessageCommand command: commands)
             executor.addCommand(command);
+    }
+
+    public void addSecretCommands(List<MessageCommand> secretCommands)
+    {
+        for (MessageCommand command: secretCommands)
+            secretExecutor.addCommand(command);
+    }
+
+    public void addBotCommands(List<MessageCommand> botCommands)
+    {
+        for (MessageCommand command: botCommands)
+            botExecutor.addCommand(command);
     }
 
     /**
@@ -45,11 +59,12 @@ public class MessageReceivedListener implements MessageCreateListener
         MessageReceivedEvent event = new MessageReceivedEvent(messageCreateEvent);
         if (!messageCreateEvent.getMessageAuthor().isBotUser())
         {
-            executor.execute(event);
+            if (!secretExecutor.secretExecute(event))
+                executor.execute(event);
         }
         else if (!messageCreateEvent.getMessageAuthor().isYourself())
         {
-            botCommandExecutor.execute(event);
+            botExecutor.execute(event);
         }
     }
 }

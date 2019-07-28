@@ -28,6 +28,16 @@ public class Discord
         connection.addCommands(commands);
     }
 
+    public void addSecretCommands(List<MessageCommand> secretCommands)
+    {
+        connection.addSecretCommands(secretCommands);
+    }
+
+    public void addBotCommands(List<MessageCommand> botCommands)
+    {
+        connection.addBotCommands(botCommands);
+    }
+
     public void start()
     {
         connection.start();

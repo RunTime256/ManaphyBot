@@ -69,6 +69,36 @@ public class MessageReceivedExecutor
     }
 
     /**
+     * Executes secret command
+     *
+     * @param event message received event
+     * @return if a secret command was executed or not
+     */
+    public boolean secretExecute(MessageReceivedEvent event)
+    {
+        List<String> content = event.getMessage().getSplitContent();
+        if (content.isEmpty())
+            return false;
+
+        MessageCommand command = getCommand(content);
+        String message = combineContent(content);
+
+        if (command != null && checkWhiteBlackList(command.getFullName(), event))
+        {
+            try
+            {
+                command.execute(message, event);
+                return true;
+            }
+            catch (Exception e)
+            {
+                sendErrorMessage(e, event.getChannel());
+            }
+        }
+        return false;
+    }
+
+    /**
      * Checks whitelist and blacklist to see if the command can be run in its current location
      *
      * @param commandName name of command

@@ -36,6 +36,8 @@ public class Bot
     public void start()
     {
         discord.addCommands(commands.getActiveCommands(prefix));
+        discord.addSecretCommands(commands.getActiveSecretCommands());
+        discord.addBotCommands(commands.getActiveBotCommands());
         discord.start();
     }
 

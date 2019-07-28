@@ -14,6 +14,7 @@ import java.util.List;
 class DConnection
 {
     private String token;
+    private String prefix;
     private DiscordApi connection;
     private MessageReceivedListener messageReceivedListener;
 
@@ -27,6 +28,7 @@ class DConnection
     DConnection(String token, String prefix, String botPrefix)
     {
         this.token = token;
+        this.prefix = prefix;
         messageReceivedListener = new MessageReceivedListener(prefix, botPrefix);
     }
 
@@ -35,13 +37,21 @@ class DConnection
         messageReceivedListener.addCommands(commands);
     }
 
+    void addSecretCommands(List<MessageCommand> secretCommands)
+    {
+        messageReceivedListener.addSecretCommands(secretCommands);
+    }
+
+    void addBotCommands(List<MessageCommand> botCommands)
+    {
+        messageReceivedListener.addBotCommands(botCommands);
+    }
+
     void start()
     {
         connection = new DiscordApiBuilder().setToken(token).login().join();
 
         connection.addMessageCreateListener(messageReceivedListener);
-
-        connection.updateActivity(ActivityType.PLAYING, "+help war puzzle solve");
     }
 
     void stop()
