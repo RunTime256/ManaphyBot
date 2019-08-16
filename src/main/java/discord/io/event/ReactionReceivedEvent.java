@@ -1,5 +1,6 @@
 package discord.io.event;
 
+import discord.components.DChannel;
 import discord.components.DEmoji;
 import discord.components.DUser;
 import org.javacord.api.event.message.reaction.ReactionAddEvent;
@@ -21,6 +22,11 @@ public class ReactionReceivedEvent
     public DUser getReactor()
     {
         return new DUser(event.getUser());
+    }
+
+    public DChannel getChannel()
+    {
+        return new DChannel(event.getChannel());
     }
 
     public long getMessageId()

@@ -7,6 +7,7 @@ import discord.io.listener.ReactionReceivedListener;
 import org.javacord.api.entity.channel.ChannelCategory;
 import org.javacord.api.entity.channel.ServerTextChannel;
 import org.javacord.api.entity.channel.TextChannel;
+import org.javacord.api.listener.message.reaction.ReactionAddListener;
 
 import java.util.Optional;
 
@@ -57,6 +58,13 @@ public class DChannel
 
     public void addReactionListener(ReactionCommand command, long userId, long messageId)
     {
-        channel.addReactionAddListener(new ReactionReceivedListener(command, userId, messageId));
+        ReactionReceivedListener reactionAddListener = new ReactionReceivedListener(command, userId, messageId);
+        channel.addReactionAddListener(reactionAddListener);
+        command.addListener(this, reactionAddListener);
+    }
+
+    public void removeReactionListener(ReactionReceivedListener listener)
+    {
+        channel.removeListener(ReactionAddListener.class, listener);
     }
 }
