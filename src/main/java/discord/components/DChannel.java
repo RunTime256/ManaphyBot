@@ -2,6 +2,8 @@ package discord.components;
 
 import discord.builder.DEmbedBuilder;
 import discord.builder.DMessageBuilder;
+import discord.components.functionality.command.ReactionCommand;
+import discord.io.listener.ReactionReceivedListener;
 import org.javacord.api.entity.channel.ChannelCategory;
 import org.javacord.api.entity.channel.ServerTextChannel;
 import org.javacord.api.entity.channel.TextChannel;
@@ -51,5 +53,10 @@ public class DChannel
     public DMessage sendMessage(DMessageBuilder builder)
     {
         return new DMessage(builder.getBuilder().send(channel).join());
+    }
+
+    public void addReactionListener(ReactionCommand command, long userId, long messageId)
+    {
+        channel.addReactionAddListener(new ReactionReceivedListener(command, userId, messageId));
     }
 }

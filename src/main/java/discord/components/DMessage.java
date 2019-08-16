@@ -27,6 +27,11 @@ public class DMessage
         return list;
     }
 
+    public long getId()
+    {
+        return message.getId();
+    }
+
     public Instant getTimestamp()
     {
         return message.getCreationTimestamp();
@@ -35,5 +40,10 @@ public class DMessage
     public void deleteMessage()
     {
         message.delete();
+    }
+
+    public void addReaction(String emoji)
+    {
+        message.addReaction(emoji);
     }
 }

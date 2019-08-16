@@ -18,21 +18,15 @@ import java.util.Optional;
 public class MessageReceivedEvent
 {
     private MessageCreateEvent event;
-    private DAuthor author;
-    private DChannel channel;
-    private DMessage message;
 
     public MessageReceivedEvent(MessageCreateEvent event)
     {
         this.event = event;
-        message = new DMessage(event.getMessage());
-        channel = new DChannel(event.getChannel());
-        author = new DAuthor(event.getMessageAuthor());
     }
 
     public DAuthor getAuthor()
     {
-        return author;
+        return new DAuthor(event.getMessageAuthor());
     }
 
     public DUser getUser()
@@ -46,12 +40,12 @@ public class MessageReceivedEvent
 
     public DChannel getChannel()
     {
-        return channel;
+        return new DChannel(event.getChannel());
     }
 
     public DMessage getMessage()
     {
-        return message;
+        return new DMessage(event.getMessage());
     }
 
     public DGuild getGuild()
