@@ -48,4 +48,14 @@ public class DUser
     {
         return user.getName();
     }
+
+    public String getFullName()
+    {
+        return user.getDiscriminatedName();
+    }
+
+    public String getAvatar()
+    {
+        return user.getAvatar().getUrl().toString();
+    }
 }
