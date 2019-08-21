@@ -1,5 +1,6 @@
 package discord.io.event;
 
+import discord.components.DApi;
 import discord.components.DChannel;
 import discord.components.DEmoji;
 import discord.components.DUser;
@@ -32,5 +33,10 @@ public class ReactionReceivedEvent
     public long getMessageId()
     {
         return event.getMessageId();
+    }
+
+    public DApi getApi()
+    {
+        return new DApi(event.getApi());
     }
 }
