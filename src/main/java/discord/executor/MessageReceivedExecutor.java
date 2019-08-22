@@ -4,6 +4,8 @@ import discord.components.DCategory;
 import discord.components.DChannel;
 import discord.components.DGuild;
 import discord.components.functionality.command.MessageCommand;
+import discord.components.functionality.command.RoleCheck;
+import discord.components.functionality.command.RoleRequirement;
 import discord.components.functionality.verification.MessageVerifier;
 import discord.guilds.Guild;
 import discord.io.event.MessageReceivedEvent;
@@ -52,16 +54,15 @@ public class MessageReceivedExecutor
     public void execute(MessageReceivedEvent event)
     {
         List<String> content = event.getMessage().getSplitContent();
-        long guildId = new Guild().getGuild("pokemon");
-        long roleId = new Role().getRole(guildId, "verified");
-        DGuild guild = event.getApi().getGuildById(guildId);
-        if (content.isEmpty() || !guild.getUserById(event.getAuthor().getId()).hasRole(guild.getRoleById(roleId)))
+        if (content.isEmpty() || !RoleCheck.checkRole(event.getApi(), event.getAuthor().getId(), RoleRequirement.VERIFIED))
             return;
 
         MessageCommand command = getCommand(content);
         String message = combineContent(content);
 
-        if (command != null && checkWhiteBlackList(command.getFullName(), event))
+        RoleRequirement requirement;
+        if (command != null && checkWhiteBlackList(command.getFullName(), event) &&
+                ((requirement = command.getRequirement()) == null || RoleCheck.checkRole(event.getApi(), event.getAuthor().getId(), requirement)))
         {
             try
             {

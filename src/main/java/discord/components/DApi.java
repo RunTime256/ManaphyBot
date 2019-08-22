@@ -2,6 +2,7 @@ package discord.components;
 
 import org.javacord.api.DiscordApi;
 import org.javacord.api.entity.server.Server;
+import org.javacord.api.entity.user.User;
 
 import java.util.Optional;
 
@@ -38,5 +39,10 @@ public class DApi
     public DUser getBot()
     {
         return new DUser(api.getYourself());
+    }
+
+    public DUser getOwner()
+    {
+        return new DUser(api.getOwner().join());
     }
 }
