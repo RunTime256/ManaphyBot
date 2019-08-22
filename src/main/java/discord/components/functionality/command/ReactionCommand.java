@@ -47,9 +47,9 @@ public class ReactionCommand
         String reaction = emojiNameMap.get(event.getEmoji().getUnicode());
         if (reaction != null)
         {
+            channel.removeReactionListener(listener);
             VerifiedReaction verifiedReaction = verifier.verifyReaction(event, reaction, content);
             executor.runCommand(verifiedReaction);
-            channel.removeReactionListener(listener);
         }
     }
 }
