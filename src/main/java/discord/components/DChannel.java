@@ -2,6 +2,7 @@ package discord.components;
 
 import discord.builder.DEmbedBuilder;
 import discord.builder.DMessageBuilder;
+import discord.components.functionality.Content;
 import discord.components.functionality.command.ReactionCommand;
 import discord.io.listener.ReactionReceivedListener;
 import org.javacord.api.entity.channel.ChannelCategory;
@@ -56,9 +57,9 @@ public class DChannel
         return new DMessage(builder.getBuilder().send(channel).join());
     }
 
-    public void addReactionListener(ReactionCommand command, long userId, long messageId)
+    public void addReactionListener(ReactionCommand command, Content content, long userId, long messageId)
     {
-        ReactionReceivedListener reactionAddListener = new ReactionReceivedListener(command, userId, messageId);
+        ReactionReceivedListener reactionAddListener = new ReactionReceivedListener(command, content, userId, messageId);
         channel.addReactionAddListener(reactionAddListener);
         command.addListener(this, reactionAddListener);
     }

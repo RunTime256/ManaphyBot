@@ -1,6 +1,7 @@
 package discord.components.functionality.command;
 
 import discord.components.DChannel;
+import discord.components.functionality.Content;
 import discord.components.functionality.verification.ReactionVerifier;
 import discord.components.functionality.verification.VerifiedReaction;
 import discord.executor.ReactionExecutor;
@@ -41,12 +42,12 @@ public class ReactionCommand
         this.listener = listener;
     }
 
-    public void execute(ReactionReceivedEvent event)
+    public void execute(ReactionReceivedEvent event, Content content)
     {
         String reaction = emojiNameMap.get(event.getEmoji().getUnicode());
         if (reaction != null)
         {
-            VerifiedReaction verifiedReaction = verifier.verifyReaction(event, reaction);
+            VerifiedReaction verifiedReaction = verifier.verifyReaction(event, reaction, content);
             executor.runCommand(verifiedReaction);
             channel.removeReactionListener(listener);
         }

@@ -2,12 +2,17 @@ package discord.components;
 
 import org.javacord.api.entity.emoji.CustomEmoji;
 import org.javacord.api.entity.emoji.Emoji;
+import utility.Pair;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class DEmoji
 {
     private Emoji emoji;
+    public static final String YES = "\uDBBA\uDF4A";
+    public static final String NO = "\uDBBA\uDF45";
 
     public DEmoji(Emoji emoji)
     {
@@ -49,5 +54,13 @@ public class DEmoji
             return unicode.get();
         else
             return null;
+    }
+
+    public static List<Pair<String, String>> getVerification()
+    {
+        ArrayList<Pair<String, String>> list = new ArrayList<>();
+        list.add(new Pair<>(YES, "yes"));
+        list.add(new Pair<>(NO, "no"));
+        return list;
     }
 }
