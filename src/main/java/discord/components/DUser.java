@@ -58,4 +58,9 @@ public class DUser
     {
         return user.getAvatar().getUrl().toString();
     }
+
+    public DPrivateChannel getDM()
+    {
+        return new DPrivateChannel(user.openPrivateChannel().join());
+    }
 }

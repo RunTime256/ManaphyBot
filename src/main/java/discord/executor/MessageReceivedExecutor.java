@@ -2,10 +2,13 @@ package discord.executor;
 
 import discord.components.DCategory;
 import discord.components.DChannel;
+import discord.components.DGuild;
 import discord.components.functionality.command.MessageCommand;
 import discord.components.functionality.verification.MessageVerifier;
+import discord.guilds.Guild;
 import discord.io.event.MessageReceivedEvent;
 import discord.io.response.ErrorResponse;
+import discord.roles.Role;
 import discord.whiteblacklist.WhiteBlackList;
 import exception.bot.BotException;
 import exception.bot.command.help.NoHelpException;
@@ -49,7 +52,10 @@ public class MessageReceivedExecutor
     public void execute(MessageReceivedEvent event)
     {
         List<String> content = event.getMessage().getSplitContent();
-        if (content.isEmpty())
+        long guildId = new Guild().getGuild("pokemon");
+        long roleId = new Role().getRole(guildId, "verified");
+        DGuild guild = event.getApi().getGuildById(guildId);
+        if (content.isEmpty() || !guild.getUserById(event.getAuthor().getId()).hasRole(guild.getRoleById(roleId)))
             return;
 
         MessageCommand command = getCommand(content);
