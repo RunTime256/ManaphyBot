@@ -11,8 +11,8 @@ import java.util.Optional;
 public class DEmoji
 {
     private Emoji emoji;
-    public static final String YES = "\uDBBA\uDF4A";
-    public static final String NO = "\uDBBA\uDF45";
+    public static final String YES = "\u2705";
+    public static final String NO = "\u274C";
 
     public DEmoji(Emoji emoji)
     {
