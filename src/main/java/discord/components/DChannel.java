@@ -10,7 +10,9 @@ import org.javacord.api.entity.channel.ServerTextChannel;
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.listener.message.reaction.ReactionAddListener;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Wrapper for Discord channels
@@ -67,5 +69,10 @@ public class DChannel
     public void removeReactionListener(ReactionReceivedListener listener)
     {
         channel.removeListener(ReactionAddListener.class, listener);
+    }
+
+    public List<DMessage> getAllMessages()
+    {
+        return channel.getMessagesAsStream().map(DMessage::new).collect(Collectors.toList());
     }
 }
