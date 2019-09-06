@@ -36,6 +36,11 @@ public class DApi
             return null;
     }
 
+    public DUser getUserById(long userId)
+    {
+        return new DUser(api.getUserById(userId).join());
+    }
+
     public DUser getBot()
     {
         return new DUser(api.getYourself());
