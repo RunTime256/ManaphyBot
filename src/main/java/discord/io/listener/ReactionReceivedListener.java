@@ -31,7 +31,7 @@ public class ReactionReceivedListener implements ReactionAddListener
             {
                 command.execute(event, content);
             }
-            catch (Exception e)
+            catch (Exception ignored)
             {
             }
         }

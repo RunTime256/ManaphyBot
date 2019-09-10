@@ -4,8 +4,6 @@ import discord.builder.DEmbedBuilder;
 import discord.builder.DMessageBuilder;
 import org.javacord.api.entity.channel.PrivateChannel;
 
-import java.util.Optional;
-
 /**
  * Wrapper for Discord channels
  */
