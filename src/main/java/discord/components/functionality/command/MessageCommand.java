@@ -24,6 +24,7 @@ public class MessageCommand
     private MessageCommand parent;
     private CommandExecutor executor;
     private MessageVerifier verifier;
+    private RoleRequirement requirement;
 
     /**
      * Constructs message command
@@ -43,6 +44,28 @@ public class MessageCommand
         this.executor = executor;
         this.verifier = verifier;
         this.parent = null;
+        requirement = null;
+    }
+
+    /**
+     * Constructs message command
+     *
+     * @param name
+     * @param description
+     * @param executor
+     * @param verifier
+     */
+    public MessageCommand(String name, String description, RoleRequirement requirement, CommandExecutor executor, MessageVerifier verifier)
+    {
+        this.subCommands = new HashMap<>();
+
+        this.name = name;
+        this.description = description;
+        this.syntax = "";
+        this.executor = executor;
+        this.verifier = verifier;
+        this.parent = null;
+        this.requirement = requirement;
     }
 
     /**
@@ -64,6 +87,29 @@ public class MessageCommand
         this.executor = executor;
         this.verifier = verifier;
         this.parent = null;
+        requirement = null;
+    }
+
+    /**
+     * Constructs message command
+     *
+     * @param name
+     * @param description
+     * @param syntax
+     * @param executor
+     * @param verifier
+     */
+    public MessageCommand(String name, String description, String syntax, RoleRequirement requirement, CommandExecutor executor, MessageVerifier verifier)
+    {
+        this.subCommands = new HashMap<>();
+
+        this.name = name;
+        this.description = description;
+        this.syntax = syntax;
+        this.executor = executor;
+        this.verifier = verifier;
+        this.parent = null;
+        this.requirement = requirement;
     }
 
     /**
@@ -84,6 +130,34 @@ public class MessageCommand
         this.syntax = "";
         this.executor = executor;
         this.verifier = verifier;
+        requirement = null;
+
+        for (MessageCommand subCommand: subCommands)
+        {
+            this.subCommands.put(subCommand.getName(), subCommand);
+            subCommand.setParent(this);
+        }
+    }
+
+    /**
+     * Constructs message command with sub-commands
+     *
+     * @param name
+     * @param description
+     * @param subCommands
+     * @param executor
+     * @param verifier
+     */
+    public MessageCommand(String name, String description, RoleRequirement requirement, List<MessageCommand> subCommands, CommandExecutor executor, MessageVerifier verifier)
+    {
+        this.subCommands = new HashMap<>();
+
+        this.name = name;
+        this.description = description;
+        this.syntax = "";
+        this.executor = executor;
+        this.verifier = verifier;
+        this.requirement = requirement;
 
         for (MessageCommand subCommand: subCommands)
         {
@@ -111,6 +185,35 @@ public class MessageCommand
         this.syntax = syntax;
         this.executor = executor;
         this.verifier = verifier;
+        requirement = null;
+
+        for (MessageCommand subCommand: subCommands)
+        {
+            this.subCommands.put(subCommand.getName(), subCommand);
+            subCommand.setParent(this);
+        }
+    }
+
+    /**
+     * Constructs message command with sub-commands
+     *
+     * @param name
+     * @param description
+     * @param syntax
+     * @param subCommands
+     * @param executor
+     * @param verifier
+     */
+    public MessageCommand(String name, String description, String syntax, RoleRequirement requirement, List<MessageCommand> subCommands, CommandExecutor executor, MessageVerifier verifier)
+    {
+        this.subCommands = new HashMap<>();
+
+        this.name = name;
+        this.description = description;
+        this.syntax = syntax;
+        this.executor = executor;
+        this.verifier = verifier;
+        this.requirement = requirement;
 
         for (MessageCommand subCommand: subCommands)
         {
@@ -135,6 +238,32 @@ public class MessageCommand
         this.syntax = "";
         this.executor = null;
         this.verifier = null;
+        requirement = null;
+
+        for (MessageCommand subCommand: subCommands)
+        {
+            this.subCommands.put(subCommand.getName(), subCommand);
+            subCommand.setParent(this);
+        }
+    }
+
+    /**
+     * Constructs message command with sub commands but no functionality
+     *
+     * @param name
+     * @param description
+     * @param subCommands
+     */
+    public MessageCommand(String name, String description, RoleRequirement requirement, List<MessageCommand> subCommands)
+    {
+        this.subCommands = new HashMap<>();
+
+        this.name = name;
+        this.description = description;
+        this.syntax = "";
+        this.executor = null;
+        this.verifier = null;
+        this.requirement = requirement;
 
         for (MessageCommand subCommand: subCommands)
         {
@@ -186,6 +315,11 @@ public class MessageCommand
     public MessageCommand getSubCommand(String name)
     {
         return subCommands.get(name);
+    }
+
+    public RoleRequirement getRequirement()
+    {
+        return requirement;
     }
 
     /**

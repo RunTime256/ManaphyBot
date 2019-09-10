@@ -1,11 +1,14 @@
 package discord.components;
 
 import org.javacord.api.entity.message.Message;
+import org.javacord.api.entity.message.Reaction;
+import org.javacord.api.entity.user.User;
 
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Wrapper for Discord messages
@@ -27,6 +30,11 @@ public class DMessage
         return list;
     }
 
+    public long getId()
+    {
+        return message.getId();
+    }
+
     public Instant getTimestamp()
     {
         return message.getCreationTimestamp();
@@ -35,5 +43,29 @@ public class DMessage
     public void deleteMessage()
     {
         message.delete();
+    }
+
+    public void addReaction(String emoji)
+    {
+        message.addReaction(emoji);
+    }
+
+    public List<DReaction> getReactions()
+    {
+        List<DReaction> reactions = new ArrayList<>();
+        for (Reaction reaction: message.getReactions())
+        {
+            reactions.add(new DReaction(reaction));
+        }
+        return reactions;
+    }
+
+    public DUser getAuthor()
+    {
+        Optional<User> author = message.getUserAuthor();
+        if (author.isPresent())
+            return new DUser(author.get());
+        else
+            return null;
     }
 }

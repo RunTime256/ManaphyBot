@@ -2,10 +2,15 @@ package discord.executor;
 
 import discord.components.DCategory;
 import discord.components.DChannel;
+import discord.components.DGuild;
 import discord.components.functionality.command.MessageCommand;
+import discord.components.functionality.command.RoleCheck;
+import discord.components.functionality.command.RoleRequirement;
 import discord.components.functionality.verification.MessageVerifier;
+import discord.guilds.Guild;
 import discord.io.event.MessageReceivedEvent;
 import discord.io.response.ErrorResponse;
+import discord.roles.Role;
 import discord.whiteblacklist.WhiteBlackList;
 import exception.bot.BotException;
 import exception.bot.command.help.NoHelpException;
@@ -49,13 +54,15 @@ public class MessageReceivedExecutor
     public void execute(MessageReceivedEvent event)
     {
         List<String> content = event.getMessage().getSplitContent();
-        if (content.isEmpty())
+        if (content.isEmpty() || !RoleCheck.checkRole(event.getApi(), event.getAuthor().getId(), RoleRequirement.VERIFIED))
             return;
 
         MessageCommand command = getCommand(content);
         String message = combineContent(content);
 
-        if (command != null && checkWhiteBlackList(command.getFullName(), event))
+        RoleRequirement requirement;
+        if (command != null && checkWhiteBlackList(command.getFullName(), event) &&
+                ((requirement = command.getRequirement()) == null || RoleCheck.checkRole(event.getApi(), event.getAuthor().getId(), requirement)))
         {
             try
             {
@@ -66,6 +73,39 @@ public class MessageReceivedExecutor
                 sendErrorMessage(e, event.getChannel());
             }
         }
+    }
+
+    /**
+     * Executes secret command
+     *
+     * @param event message received event
+     * @return if a secret command was executed or not
+     */
+    public boolean secretExecute(MessageReceivedEvent event)
+    {
+        List<String> content = event.getMessage().getSplitContent();
+        if (content.isEmpty())
+            return false;
+
+        MessageCommand command = getCommand(content);
+        String message = combineContent(content);
+
+        if (command != null && checkWhiteBlackList(command.getFullName(), event))
+        {
+            try
+            {
+                command.execute(message, event);
+                return true;
+            }
+            catch (InvalidArgumentsException ignored)
+            {
+            }
+            catch (Exception e)
+            {
+                sendErrorMessage(e, event.getChannel());
+            }
+        }
+        return false;
     }
 
     /**

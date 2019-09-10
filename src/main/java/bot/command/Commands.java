@@ -36,4 +36,16 @@ public class Commands
 
         return commands;
     }
+
+    public List<MessageCommand> getActiveSecretCommands()
+    {
+        List<MessageCommand> commands = new ArrayList<>();
+        return commands;
+    }
+
+    public List<MessageCommand> getActiveBotCommands()
+    {
+        List<MessageCommand> commands = new ArrayList<>();
+        return commands;
+    }
 }
