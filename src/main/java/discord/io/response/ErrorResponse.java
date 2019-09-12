@@ -5,6 +5,7 @@ import discord.components.DChannel;
 import exception.ManaphyException;
 
 import java.awt.*;
+import java.util.concurrent.CompletionException;
 
 /**
  * Response creator for errors
@@ -49,6 +50,12 @@ public class ErrorResponse
         {
             message = exception.getMessage();
             color = ((ManaphyException)exception).getColor();
+        }
+        else if (CompletionException.class.isAssignableFrom(exception.getClass()))
+        {
+            message = "A temporary issue occurred! Please wait a few minutes before trying again.\n\n" +
+                    "If the problem persists after a few attempts, please contact the bot owner.";
+            color = Color.YELLOW;
         }
         else
         {
