@@ -75,4 +75,9 @@ public class DChannel
     {
         return channel.getMessagesAsStream().map(DMessage::new).collect(Collectors.toList());
     }
+
+    public DMessage getMessage(long id)
+    {
+        return new DMessage(channel.getMessageById(id).join());
+    }
 }

@@ -1,5 +1,7 @@
 package discord.components;
 
+import discord.builder.DEmbedBuilder;
+import discord.builder.DMessageBuilder;
 import org.javacord.api.entity.message.Message;
 import org.javacord.api.entity.message.Reaction;
 import org.javacord.api.entity.user.User;
@@ -67,5 +69,20 @@ public class DMessage
             return new DUser(author.get());
         else
             return null;
+    }
+
+    public void updateMessage(String message)
+    {
+        this.message.edit(message);
+    }
+
+    public void updateMessage(int x)
+    {
+        this.message.edit(String.valueOf(x));
+    }
+
+    public void updateMessage(DEmbedBuilder builder)
+    {
+        this.message.edit(builder.getBuilder());
     }
 }
